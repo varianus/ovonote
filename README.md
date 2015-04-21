@@ -13,20 +13,15 @@ Manage todo items with cool GUI
 
 or with integrated text editor, with syntax highlighting!
 ![or with integrated text editor, with syntax highlighting!](http://ovoplayer.altervista.org/images/RawEdit-OvoNote.png)
- 
 
 ### Development
 This application is built using Lazarus (version 1.5) and FreePascal compiler (version 3.1.1).
-
 
 ### References
 
  * [Explanation of todo.txt](http://todotxt.com/) 
  * [Reference command-line implementation on Github](https://github.com/ginatrapani/todo.txt-cli)
  * [File format documentation](https://github.com/ginatrapani/todo.txt-cli/wiki/The-Todo.txt-Format)
-
-### Development
-This application is built using Lazarus (version 1.5) and FreePascal compiler (version 3.1.1).
 
 ###License: GPLV2
 
