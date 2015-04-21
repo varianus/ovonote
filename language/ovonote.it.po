@@ -1,0 +1,189 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: fovonote.all_element
+msgctxt "fovonote.all_element"
+msgid "<All>"
+msgstr ""
+
+#: tdm.menuitem1.caption
+msgctxt "tdm.menuitem1.caption"
+msgid "Close"
+msgstr ""
+
+#: tform1.caption
+msgctxt "tform1.caption"
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: tform1.label1.caption
+msgctxt "tform1.label1.caption"
+msgid "Path to files"
+msgstr "Percorso dei files"
+
+#: tfrawedit.actfilesave.caption
+msgctxt "tfrawedit.actfilesave.caption"
+msgid "Save"
+msgstr "Salva"
+
+#: tfrawedit.actrefresh.caption
+msgctxt "tfrawedit.actrefresh.caption"
+msgid "Refresh"
+msgstr "Aggiorna"
+
+#: tfrawedit.actrefresh.hint
+msgid "Refresh file content"
+msgstr "Aggiorna contenuto file"
+
+#: tfrawedit.caption
+msgid "todo.txt"
+msgstr ""
+
+#: tfrmovonote.actadd.caption
+msgid "Add"
+msgstr "Aggiungi"
+
+#: tfrmovonote.actadd.hint
+msgid "Add a new task"
+msgstr "Aggiungi una nuova attività"
+
+#: tfrmovonote.actarchive.caption
+msgid "Archive"
+msgstr "Archivia"
+
+#: tfrmovonote.actarchive.hint
+msgid "Archive completed tasks"
+msgstr "Archivia attività completate"
+
+#: tfrmovonote.actdelete.caption
+msgctxt "tfrmovonote.actdelete.caption"
+msgid "Delete"
+msgstr "Elimina"
+
+#: tfrmovonote.actdelete.hint
+msgid "Delete task"
+msgstr "Elimina attività"
+
+#: tfrmovonote.actedit.caption
+msgid "Edit"
+msgstr "Modifica"
+
+#: tfrmovonote.actedit.hint
+msgid "Edit task"
+msgstr "Modifica attività"
+
+#: tfrmovonote.actsettings.caption
+msgctxt "tfrmovonote.actsettings.caption"
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: tfrmovonote.actsettings.hint
+#, fuzzy
+msgctxt "tfrmovonote.actsettings.hint"
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: tfrmovonote.actshowdone.caption
+msgid "Show Archived "
+msgstr ""
+
+#: tfrmovonote.caption
+msgid "OvoNote"
+msgstr ""
+
+#: tfrmovonote.edtpriority.text
+msgid " "
+msgstr ""
+
+#: tfrmovonote.edttask.text
+msgid "edtTask"
+msgstr ""
+
+#: tfrmovonote.fileopen1.caption
+msgctxt "tfrmovonote.fileopen1.caption"
+msgid "Refresh"
+msgstr "Aggiorna"
+
+#: tfrmovonote.fileopen1.hint
+msgctxt "TFRMOVONOTE.FILEOPEN1.HINT"
+msgid "Reload file"
+msgstr "Aggiorna file"
+
+#: tfrmovonote.filesaveas1.caption
+msgctxt "tfrmovonote.filesaveas1.caption"
+msgid "Save"
+msgstr "Salva"
+
+#: tfrmovonote.filesaveas1.hint
+msgid "Save file"
+msgstr "Salva file"
+
+#: tfrmovonote.gridtask.columns[0].title.caption
+msgid "Done"
+msgstr "Fatto"
+
+#: tfrmovonote.gridtask.columns[1].title.caption
+msgid "Pr."
+msgstr "Pr."
+
+#: tfrmovonote.gridtask.columns[2].title.caption
+msgid "Task"
+msgstr "Attività"
+
+#: tfrmovonote.gridtask.columns[3].title.caption
+msgid "Due"
+msgstr "Scadenza"
+
+#: tfrmovonote.gridtask.columns[4].title.caption
+msgid "Contexts"
+msgstr "Contesti"
+
+#: tfrmovonote.gridtask.columns[5].title.caption
+msgid "Projects"
+msgstr "Progetti"
+
+#: tfrmovonote.gridtask.columns[6].title.caption
+msgid "Link"
+msgstr "Link"
+
+#: tfrmovonote.gridtask.columns[7].title.caption
+#, fuzzy
+msgctxt "tfrmovonote.gridtask.columns[7].title.caption"
+msgid "Delete"
+msgstr "Elimina"
+
+#: tfrmovonote.menuitem1.caption
+msgctxt "tfrmovonote.menuitem1.caption"
+msgid "Exit"
+msgstr "Esci"
+
+#: tfrmovonote.toolbutton10.caption
+msgid "ToolButton10"
+msgstr ""
+
+#: tfrmovonote.toolbutton9.caption
+msgid "ToolButton9"
+msgstr ""
+
+#: tfsettings.caption
+#, fuzzy
+msgctxt "tfsettings.caption"
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: tfsettings.label1.caption
+msgctxt "tfsettings.label1.caption"
+msgid "Path to files"
+msgstr "Percorso dei files"
+
+#: udatamodule.all_element
+msgctxt "udatamodule.all_element"
+msgid "<All>"
+msgstr ""
+
+#: udatamodule.rs_save
+msgid ""
+"Task list have been modified.\n"
+"Do you want to save changes?\n"
+msgstr ""
+
