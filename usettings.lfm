@@ -1,0 +1,57 @@
+object fSettings: TfSettings
+  Left = 730
+  Height = 278
+  Top = 297
+  Width = 584
+  Caption = 'Settings'
+  ClientHeight = 278
+  ClientWidth = 584
+  OnShow = FormShow
+  LCLVersion = '1.5'
+  object Panel1: TPanel
+    Left = 0
+    Height = 278
+    Top = 0
+    Width = 584
+    Align = alClient
+    ClientHeight = 278
+    ClientWidth = 584
+    TabOrder = 0
+    object DirectoryEdit1: TDirectoryEdit
+      Left = 8
+      Height = 23
+      Top = 40
+      Width = 559
+      ShowHidden = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 0
+    end
+    object Label1: TLabel
+      Left = 12
+      Height = 15
+      Top = 16
+      Width = 62
+      Caption = 'Path to files'
+      ParentColor = False
+    end
+    object ButtonPanel1: TButtonPanel
+      Left = 7
+      Height = 34
+      Top = 237
+      Width = 570
+      OKButton.Name = 'OKButton'
+      OKButton.DefaultCaption = True
+      OKButton.OnClick = OKButtonClick
+      HelpButton.Name = 'HelpButton'
+      HelpButton.DefaultCaption = True
+      CloseButton.Name = 'CloseButton'
+      CloseButton.DefaultCaption = True
+      CancelButton.Name = 'CancelButton'
+      CancelButton.DefaultCaption = True
+      TabOrder = 1
+      ShowButtons = [pbOK, pbCancel]
+    end
+  end
+end
