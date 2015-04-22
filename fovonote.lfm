@@ -18,29 +18,6 @@ object frmOvoNote: TfrmOvoNote
   OnShow = FormShow
   ShowHint = True
   LCLVersion = '1.5'
-  object dtpDueDate: TZVDateTimePicker
-    Left = 176
-    Height = 23
-    Top = 144
-    Width = 83
-    CenturyFrom = 1941
-    MaxDate = 2958465
-    MinDate = -53780
-    AutoSize = False
-    TabOrder = 0
-    TrailingSeparator = False
-    LeadingZeros = True
-    Visible = False
-    Kind = dtkDate
-    TimeFormat = tf24
-    TimeDisplay = tdHMS
-    DateMode = dmComboBox
-    Date = 41943
-    Time = 0.410110659722704
-    UseDefaultSeparators = True
-    HideDateTimeParts = []
-    MonthNames = 'Long'
-  end
   object mList: TMemo
     Left = 344
     Height = 35
@@ -275,31 +252,6 @@ object frmOvoNote: TfrmOvoNote
       TabOrder = 1
     end
   end
-  object edtPriority: TMaskEdit
-    Left = 352
-    Height = 27
-    Top = 320
-    Width = 80
-    AutoSize = False
-    CharCase = ecNormal
-    MaxLength = 1
-    TabOrder = 4
-    Visible = False
-    OnKeyPress = edtPriorityKeyPress
-    EditMask = '>L;1; '
-    Text = ' '
-    SpaceChar = ' '
-  end
-  object edtTask: TEdit
-    Left = 531
-    Height = 28
-    Top = 159
-    Width = 80
-    OnKeyPress = edtTaskKeyPress
-    TabOrder = 5
-    Text = 'edtTask'
-    Visible = False
-  end
   object Panel4: TPanel
     Left = 170
     Height = 641
@@ -309,36 +261,6 @@ object frmOvoNote: TfrmOvoNote
     ClientHeight = 641
     ClientWidth = 842
     TabOrder = 6
-    object pnlNew: TPanel
-      Left = 1
-      Height = 34
-      Top = 1
-      Width = 840
-      Align = alTop
-      ClientHeight = 34
-      ClientWidth = 840
-      TabOrder = 0
-      object edtNewTask: TEdit
-        Left = 32
-        Height = 32
-        Top = 1
-        Width = 807
-        Align = alClient
-        TabOrder = 0
-      end
-      object SpeedButton1: TSpeedButton
-        Left = 1
-        Height = 32
-        Top = 1
-        Width = 31
-        Action = actAdd
-        Align = alLeft
-        Color = clDefault
-        Flat = True
-        Transparent = False
-        ShowCaption = False
-      end
-    end
     object gridTask: TStringGrid
       Left = 1
       Height = 605
@@ -402,6 +324,7 @@ object frmOvoNote: TfrmOvoNote
       OnCheckboxToggled = gridTaskCheckboxToggled
       OnDrawCell = gridTaskDrawCell
       OnButtonClick = gridTaskButtonClick
+      OnExit = gridTaskExit
       OnHeaderClick = gridTaskHeaderClick
       OnPrepareCanvas = gridTaskPrepareCanvas
       OnSelectEditor = gridTaskSelectEditor
@@ -419,6 +342,87 @@ object frmOvoNote: TfrmOvoNote
         64
       )
     end
+    object pnlNew: TPanel
+      Left = 1
+      Height = 34
+      Top = 1
+      Width = 840
+      Align = alTop
+      ClientHeight = 34
+      ClientWidth = 840
+      TabOrder = 0
+      object edtNewTask: TEdit
+        Left = 32
+        Height = 32
+        Top = 1
+        Width = 807
+        Align = alClient
+        TabOrder = 0
+      end
+      object SpeedButton1: TSpeedButton
+        Left = 1
+        Height = 32
+        Top = 1
+        Width = 31
+        Action = actAdd
+        Align = alLeft
+        Color = clDefault
+        Flat = True
+        Transparent = False
+        ShowCaption = False
+      end
+    end
+  end
+  object edtPriority: TMaskEdit
+    Left = 256
+    Height = 27
+    Top = 128
+    Width = 80
+    AutoSize = False
+    BorderStyle = bsNone
+    CharCase = ecNormal
+    MaxLength = 1
+    TabOrder = 4
+    Visible = False
+    OnKeyPress = edtPriorityKeyPress
+    EditMask = '>L;1; '
+    Text = 'A'
+    SpaceChar = ' '
+  end
+  object edtTask: TEdit
+    Left = 304
+    Height = 20
+    Top = 135
+    Width = 80
+    BorderStyle = bsNone
+    OnKeyPress = edtTaskKeyPress
+    TabOrder = 5
+    Text = 'edtTask'
+    Visible = False
+  end
+  object dtpDueDate: TZVDateTimePicker
+    Left = 400
+    Height = 23
+    Top = 132
+    Width = 83
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    AutoSize = False
+    TabOrder = 0
+    BorderStyle = bsNone
+    TrailingSeparator = False
+    LeadingZeros = True
+    Visible = False
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 41943
+    Time = 0.410110659722704
+    UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
   end
   object ActionList1: TActionList
     Images = dm.imglEnabled
@@ -3441,5 +3445,12 @@ object frmOvoNote: TfrmOvoNote
       Caption = 'Exit'
       OnClick = MenuItem1Click
     end
+  end
+  object TimerAutoSave: TTimer
+    Enabled = False
+    Interval = 3000
+    OnTimer = TimerAutoSaveTimer
+    left = 358
+    top = 182
   end
 end

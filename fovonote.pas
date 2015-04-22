@@ -60,6 +60,7 @@ type
     Panel2: TPanel;
     bSearch: TSpeedButton;
     SpeedButton1: TSpeedButton;
+    TimerAutoSave: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton10: TToolButton;
@@ -92,6 +93,7 @@ type
     procedure gridTaskCheckboxToggled(Sender: TObject; aCol, aRow: integer; aState: TCheckboxState);
     procedure gridTaskDrawCell(Sender: TObject; aCol, aRow: Integer;
       aRect: TRect; aState: TGridDrawState);
+    procedure gridTaskExit(Sender: TObject);
     procedure gridTaskHeaderClick(Sender: TObject; IsColumn: Boolean;
       Index: Integer);
     procedure gridTaskPrepareCanvas(Sender: TObject; aCol, aRow: integer; aState: TGridDrawState);
@@ -105,18 +107,21 @@ type
       aRow: Integer; const CheckedState: TCheckboxState; var ABitmap: TBitmap);
     procedure lbProjectsSelectionChange(Sender: TObject; User: boolean);
     procedure MenuItem1Click(Sender: TObject);
+    procedure TimerAutoSaveTimer(Sender: TObject);
     procedure ToolButton10Click(Sender: TObject);
     procedure TrayIconDblClick(Sender: TObject);
   private
     fLoading : boolean;
     TaskList: TTaskList;
 
+    procedure CheckAutoSave;
     procedure LoadFile;
     procedure LoadToGrid(FilterProject, FilterContext, FilterText: string); overload;
     procedure LoadToGrid(FilterProject, FilterContext: Integer); overload;
     procedure LoadToGrid(); overload;
     procedure ReloadFilters;
     procedure ResizeGrid;
+    procedure TaskListChange(Sender: TObject);
     procedure TasktoGridRow(Task: TTask; Arow: Integer);
 
   end;
@@ -267,7 +272,10 @@ var
   Mode: Word;
 begin
   if not Assigned(TaskList) then
-    TaskList := TTaskList.Create;
+    begin
+       TaskList := TTaskList.Create;
+       TaskList.OnChange := @TaskListChange;
+    end;
 
   Mode := fmOpenRead;
   if not FileExistsUTF8(dm.FilePath+FILE_TODO) then
@@ -378,10 +386,26 @@ begin
   ResizeGrid;
 end;
 
+Procedure TfrmOvoNote.CheckAutoSave;
+begin
+  if dm.AutoSave and  TaskList.Modified then
+    FileSaveAs1.Execute;
+
+end;
+
 procedure TfrmOvoNote.actEditExecute(Sender: TObject);
 begin
+
+  CheckAutoSave;
+
+  if TaskList.Modified then
+   Case MessageDlg(RS_SAVE,mtWarning, mbYesNoCancel,0) of
+      mrYes : FileSaveAs1.Execute;
+      mrCancel : exit;
+   end;
+
+  fRawEdit:=TfRawEdit.Create(Self, false);
   try
-    fRawEdit:=TfRawEdit.Create(Self, false);
     if fRawEdit.showModal = mrModified then
       FileOpen1.Execute;
   finally
@@ -450,6 +474,7 @@ end;
 procedure TfrmOvoNote.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   Application.ShowMainForm:=False;
+  CheckAutoSave;
   if TaskList.Modified then
     Case MessageDlg(RS_SAVE,mtWarning, mbYesNoCancel,0) of
       mrYes : FileSaveAs1.Execute;
@@ -542,12 +567,12 @@ begin
            if Parola[1] in ['+','@'] then
               begin
                 gridTask.Canvas.Font.Style:=[fsBold];
-                gridTask.Canvas.TextOut(X, arect.top+4, Parola);
+                gridTask.Canvas.TextOut(X, arect.top+1, Parola);
               end
            else
               begin
                 gridTask.Canvas.Font.Style:=[];
-                gridTask.Canvas.TextOut(X, arect.top+3, Parola);
+                gridTask.Canvas.TextOut(X, arect.top, Parola);
               end;
 
            inc(x, gridTask.Canvas.GetTextWidth(Parola));
@@ -556,6 +581,11 @@ begin
     end
   else
     gridTask.DefaultDrawCell(aCol, aRow, aRect, aState);
+end;
+
+procedure TfrmOvoNote.gridTaskExit(Sender: TObject);
+begin
+  gridTask.EditorMode := false;
 end;
 
 procedure TfrmOvoNote.gridTaskSelectEditor(Sender: TObject; aCol, aRow: integer; var Editor: TWinControl);
@@ -580,7 +610,6 @@ begin
         edtTask.BoundsRect := aRect;
         Editor := edtTask;
         edtTask.Text := task.Task;
-
       end;
 
     COL_PRIORITY:
@@ -657,11 +686,21 @@ begin
       begin
       end;
     end;
+
   TasktoGridRow(Task, ARow);
   ReloadFilters;
   gridTask.InvalidateRow(ARow);
 
 
+end;
+
+procedure TfrmOvoNote.TaskListChange(Sender: TObject);
+begin
+  if dm.AutoSave then
+    begin
+      TimerAutoSave.Enabled:=false;
+      TimerAutoSave.Enabled:=True;
+    end;
 end;
 
 procedure TfrmOvoNote.FileOpen1Execute(Sender: TObject);
@@ -686,6 +725,7 @@ begin
 
   TodoFile := TFileStream.Create(dm.FilePath+FILE_TODO, Mode);
   TaskList.SaveToStream(TodoFile);
+  TaskList.Modified:= false;
   TodoFile.Free;
 end;
 
@@ -742,9 +782,16 @@ begin
   Application.terminate;
 end;
 
+procedure TfrmOvoNote.TimerAutoSaveTimer(Sender: TObject);
+begin
+  TimerAutoSave.Enabled:=false;
+  CheckAutoSave;
+
+end;
+
 procedure TfrmOvoNote.ToolButton10Click(Sender: TObject);
 begin
-     Application.terminate;
+  Application.terminate;
 end;
 
 procedure TfrmOvoNote.TrayIconDblClick(Sender: TObject);

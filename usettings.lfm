@@ -53,5 +53,13 @@ object fSettings: TfSettings
       TabOrder = 1
       ShowButtons = [pbOK, pbCancel]
     end
+    object cbAutosave: TCheckBox
+      Left = 12
+      Height = 19
+      Top = 80
+      Width = 121
+      Caption = 'Auto-save changes'
+      TabOrder = 2
+    end
   end
 end

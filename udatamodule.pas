@@ -50,10 +50,14 @@ type
     procedure DataModuleDestroy(Sender: TObject);
   private
     Config: TXMLConfigStorage;
+    function getAutoSave: boolean;
     function getfilePath: string;
+    procedure setAutoSave(AValue: boolean);
     procedure setfilePath(AValue: string);
   public
     property FilePath: string read getfilePath write setfilePath;
+    property AutoSave: boolean read getAutoSave write setAutoSave;
+
     procedure SaveConfig;
   end;
 
@@ -79,6 +83,16 @@ end;
 function Tdm.getfilePath: string;
 begin
   result := ExpandFileNameUTF8(Config.GetValue('Files/Path','.'));
+end;
+
+function Tdm.getAutoSave: boolean;
+begin
+  result := Config.GetValue('Files/AutoSave', false);
+end;
+
+procedure Tdm.setAutoSave(AValue: boolean);
+begin
+   Config.SetValue('Files/AutoSave',aValue);
 end;
 
 procedure Tdm.setfilePath(AValue: string);
