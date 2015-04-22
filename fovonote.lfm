@@ -1,7 +1,7 @@
 object frmOvoNote: TfrmOvoNote
-  Left = 561
+  Left = 2023
   Height = 679
-  Top = 196
+  Top = 200
   Width = 1012
   ActiveControl = dtpDueDate
   Caption = 'OvoNote'
@@ -182,6 +182,7 @@ object frmOvoNote: TfrmOvoNote
     end
     object ToolButton6: TToolButton
       Left = 115
+      Hint = 'Edit as text'
       Top = 2
       Action = actEdit
     end
@@ -386,7 +387,7 @@ object frmOvoNote: TfrmOvoNote
     Visible = False
     OnKeyPress = edtPriorityKeyPress
     EditMask = '>L;1; '
-    Text = 'A'
+    Text = ' '
     SpaceChar = ' '
   end
   object edtTask: TEdit
@@ -466,7 +467,7 @@ object frmOvoNote: TfrmOvoNote
     end
     object actEdit: TAction
       Caption = 'Edit'
-      Hint = 'Edit task'
+      Hint = 'Internal text editor'
       ImageIndex = 3
       OnExecute = actEditExecute
     end
