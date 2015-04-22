@@ -52,6 +52,7 @@ type
     procedure SetDone(AValue: boolean);
     procedure SetDue(AValue: TDate);
     procedure SetLink(AValue: string);
+    procedure SetModified(AValue: Boolean);
     procedure SetPriority(AValue: char);
     procedure SetProjects(AValue: TStringList);
     procedure SetRow(AValue: integer);
@@ -59,7 +60,7 @@ type
     function SortKey: DWORD;
   public
     Property Owner: TTaskList read FOwner;
-    property Modified: Boolean read FModified write FModified;
+    property Modified: Boolean read FModified write SetModified;
     Property Row : integer read FRow write SetRow;
     property Task: string read FTask write SetTask;
     property Priority: char read FPriority write SetPriority;
@@ -70,7 +71,6 @@ type
     property Completion: TDate read FCompletion write SetCompletion;
     property Creation: TDate read FCreation write SetCreation;
     property Link: string read FLink write SetLink;
-
     constructor Create(aOwner: TTaskList);
     destructor Destroy;  override;
   end;
@@ -80,10 +80,13 @@ type
   TTaskList = class(TObjectList)
   private
     fMasterModified: boolean;
+    FOnChange: TNotifyEvent;
     function GetModified: boolean;
     procedure SetModified(AValue: boolean);
+    procedure SetOnChange(AValue: TNotifyEvent);
   protected
     Procedure Notify(Ptr: Pointer; Action: TListNotification); override;
+    Procedure DoChange(Task:TTask);
   public
     Parser: TUSStringParser;
     Property Modified: boolean read GetModified write SetModified;
@@ -94,6 +97,7 @@ type
     Procedure GetContexts( TaskList: TStrings);
     Procedure GetProjects( TaskList: TStrings);
     Procedure Tasksort;
+    Property OnChange: TNotifyEvent read FOnChange write SetOnChange;
     constructor Create; reintroduce;
     destructor Destroy;  override;
 
@@ -121,22 +125,30 @@ begin
   if result = 0 then
      result := CompareValue(task1.Row, task2.Row);
 
-
 end;
 
 procedure TTaskList.SetModified(AValue: boolean);
 var
   i: integer;
 begin
+  fMasterModified:=AValue;
+
   for i :=0 to count -1 do
     TTask(Items[i]).Modified := false;
-  fMasterModified:=False;
+
 end;
 
 procedure TTaskList.Notify(Ptr: Pointer; Action: TListNotification);
 begin
   inherited Notify(Ptr, Action);
   fMasterModified:= true;
+  DoChange(TTask(Ptr));
+end;
+
+procedure TTaskList.DoChange(Task: TTask);
+begin
+  if Assigned(FOnChange) then
+     FOnChange(self);
 end;
 
 function TTaskList.GetModified: boolean;
@@ -227,6 +239,7 @@ var
   row: string;
   i: integer;
 begin
+  Data.Size:=0;
   for i := 0 to Count - 1 do
     begin
       row := RowFromItem(TTask(Items[i]));
@@ -234,6 +247,7 @@ begin
       Row:=sLineBreak;
       Data.Write(Row[1], SizeOf(sLineBreak));
     end;
+
   Modified:=false;
 
 end;
@@ -376,6 +390,13 @@ begin
     Sort(@TaskCompare);
 end;
 
+procedure TTaskList.SetOnChange(AValue: TNotifyEvent);
+begin
+  if FOnChange=AValue then Exit;
+  FOnChange:=AValue;
+end;
+
+
 constructor TTaskList.Create;
 begin
   inherited Create(true);
@@ -397,7 +418,7 @@ begin
   if FCompletion = AValue then
     Exit;
   FCompletion := AValue;
-  FModified:= true;
+  SetModified(true);
 end;
 
 procedure TTask.SetContexts(AValue: TStringList);
@@ -405,14 +426,14 @@ begin
   if FContexts = AValue then
     Exit;
   FContexts := AValue;
-  FModified:= true;
+  SetModified(true);
 end;
 
 procedure TTask.SetCreation(AValue: TDate);
 begin
   if FCreation=AValue then Exit;
   FCreation:=AValue;
-  FModified:= true;
+  SetModified(true);
 end;
 
 procedure TTask.SetDone(AValue: boolean);
@@ -424,7 +445,7 @@ begin
     FCompletion:=trunc(Now)
   else
     FCompletion := 0;
-  FModified:= true;
+  SetModified(true);
 
 end;
 
@@ -433,7 +454,7 @@ begin
   if FDue = AValue then
     Exit;
   FDue := AValue;
-  FModified:= true;
+  SetModified(true);
 end;
 
 procedure TTask.SetLink(AValue: string);
@@ -441,7 +462,17 @@ begin
   if FLink = AValue then
     Exit;
   FLink := AValue;
-  FModified:= true;
+  SetModified(true);
+end;
+
+procedure TTask.SetModified(AValue: Boolean);
+begin
+  FModified:=AValue;
+  if (FModified) then
+    begin
+     FOwner.DoChange(self);
+    end;
+
 end;
 
 procedure TTask.SetPriority(AValue: char);
@@ -449,7 +480,7 @@ begin
   if FPriority = AValue then
     Exit;
   FPriority := AValue;
-  FModified:= true;
+  SetModified(true);
 end;
 
 procedure TTask.SetProjects(AValue: TStringList);
@@ -457,14 +488,14 @@ begin
   if FProjects = AValue then
     Exit;
   FProjects := AValue;
-  FModified:= true;
+  SetModified(true);
 end;
 
 procedure TTask.SetRow(AValue: integer);
 begin
   if FRow=AValue then Exit;
   FRow:=AValue;
-  FModified:= true;
+  SetModified(true);
 end;
 
 procedure TTask.SetTask(AValue: string);
@@ -473,7 +504,7 @@ begin
     Exit;
   FTask := AValue;
   ExtractProjectsAndContexts(AValue);
-  FModified:= true;
+  SetModified(true);
 end;
 
 function TTask.SortKey: DWORD;

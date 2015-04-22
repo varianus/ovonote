@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, FileUtil, LCLIntf, SynEdit,
   Forms, Controls, Graphics, Dialogs,
   ComCtrls, ActnList, todotxtsyn_highlighter,
-  DefaultTranslator, udatamodule;
+  DefaultTranslator, ExtCtrls, udatamodule;
 
 type
 
@@ -38,6 +38,7 @@ type
     actFileSave: TAction;
     ActionList1: TActionList;
     Editor: TSynEdit;
+    TimerAutoSave: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
@@ -45,11 +46,14 @@ type
     procedure actFileSaveExecute(Sender: TObject);
     procedure ActionList1Update(AAction: TBasicAction; var Handled: Boolean);
     procedure actRefreshExecute(Sender: TObject);
+    procedure EditorChangeUpdating(ASender: TObject; AnUpdating: Boolean);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+    procedure TimerAutoSaveTimer(Sender: TObject);
   private
     Syne : TTodoSyn;
     Active_File: string;
     Modified :boolean;
+    procedure CheckAutoSave;
   public
     Constructor Create(AOwner: TComponent; Archived: Boolean); reintroduce;
   end;
@@ -102,20 +106,40 @@ begin
 
 end;
 
+procedure TfRawEdit.EditorChangeUpdating(ASender: TObject; AnUpdating: Boolean);
+begin
+  TimerAutoSave.Enabled:=false;
+  TimerAutoSave.Enabled:=True;
+end;
+
+procedure TfRawEdit.CheckAutoSave;
+begin
+  if dm.AutoSave and Editor.Modified then
+    actFileSave.Execute;
+end;
+
 procedure TfRawEdit.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
  CanClose := true;
+ CheckAutoSave;
+
  if Editor.Modified then
     Case MessageDlg(RS_SAVE,mtWarning, mbYesNoCancel,0) of
      mrYes : begin
-                actFileSave.Execute;
-     end;
+              actFileSave.Execute;
+             end;
      mrCancel : CanClose:= false;
    end;
 
   if Modified then
      ModalResult:= mrModified;
 
+end;
+
+procedure TfRawEdit.TimerAutoSaveTimer(Sender: TObject);
+begin
+  TimerAutoSave.Enabled:=false;
+  CheckAutoSave;
 end;
 
 procedure TfRawEdit.actFileSaveExecute(Sender: TObject);

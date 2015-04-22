@@ -92,7 +92,7 @@ msgid "OvoNote"
 msgstr ""
 
 #: tfrmovonote.edtpriority.text
-msgid " "
+msgid "A"
 msgstr ""
 
 #: tfrmovonote.edttask.text
@@ -170,6 +170,10 @@ msgstr ""
 msgctxt "tfsettings.caption"
 msgid "Settings"
 msgstr "Impostazioni"
+
+#: tfsettings.cbautosave.caption
+msgid "Auto-save changes"
+msgstr ""
 
 #: tfsettings.label1.caption
 msgctxt "tfsettings.label1.caption"

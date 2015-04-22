@@ -34,6 +34,7 @@ type
 
   TfSettings = class(TForm)
     ButtonPanel1: TButtonPanel;
+    cbAutosave: TCheckBox;
     DirectoryEdit1: TDirectoryEdit;
     Label1: TLabel;
     Panel1: TPanel;
