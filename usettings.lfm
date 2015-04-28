@@ -1,7 +1,7 @@
 object fSettings: TfSettings
-  Left = 730
+  Left = 2148
   Height = 278
-  Top = 297
+  Top = 470
   Width = 584
   Caption = 'Settings'
   ClientHeight = 278
@@ -50,6 +50,7 @@ object fSettings: TfSettings
       CloseButton.DefaultCaption = True
       CancelButton.Name = 'CancelButton'
       CancelButton.DefaultCaption = True
+      CancelButton.OnClick = CancelButtonClick
       TabOrder = 1
       ShowButtons = [pbOK, pbCancel]
     end
