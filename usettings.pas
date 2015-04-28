@@ -38,6 +38,7 @@ type
     DirectoryEdit1: TDirectoryEdit;
     Label1: TLabel;
     Panel1: TPanel;
+    procedure CancelButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
   private
@@ -59,6 +60,12 @@ procedure TfSettings.FormShow(Sender: TObject);
 begin
   DirectoryEdit1.Directory := dm.FilePath;
 
+end;
+
+procedure TfSettings.CancelButtonClick(Sender: TObject);
+begin
+  ModalResult:=mrCancel;
+  Close;
 end;
 
 procedure TfSettings.OKButtonClick(Sender: TObject);
