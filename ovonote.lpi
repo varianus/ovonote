@@ -116,12 +116,10 @@
         <ComponentName Value="dm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="udatamodule"/>
       </Unit4>
       <Unit5>
         <Filename Value="common\todo_parser.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="todo_parser"/>
       </Unit5>
     </Units>
   </ProjectOptions>
