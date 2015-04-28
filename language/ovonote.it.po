@@ -69,7 +69,9 @@ msgid "Edit"
 msgstr "Modifica"
 
 #: tfrmovonote.actedit.hint
-msgid "Edit task"
+#, fuzzy
+#| msgid "Edit task"
+msgid "Internal text editor"
 msgstr "Modifica attività"
 
 #: tfrmovonote.actsettings.caption
@@ -87,12 +89,16 @@ msgstr "Impostazioni"
 msgid "Show Archived "
 msgstr ""
 
-#: tfrmovonote.caption
-msgid "OvoNote"
+#: tfrmovonote.actterminate.caption
+msgid "actTerminate"
 msgstr ""
 
-#: tfrmovonote.edtpriority.text
-msgid "A"
+#: tfrmovonote.actterminate.hint
+msgid "Close application"
+msgstr ""
+
+#: tfrmovonote.caption
+msgid "OvoNote"
 msgstr ""
 
 #: tfrmovonote.edttask.text
@@ -157,8 +163,8 @@ msgctxt "tfrmovonote.menuitem1.caption"
 msgid "Exit"
 msgstr "Esci"
 
-#: tfrmovonote.toolbutton10.caption
-msgid "ToolButton10"
+#: tfrmovonote.toolbutton6.hint
+msgid "Edit as text"
 msgstr ""
 
 #: tfrmovonote.toolbutton9.caption

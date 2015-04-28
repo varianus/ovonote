@@ -38,6 +38,7 @@ type
     actAdd: TAction;
     actDelete: TAction;
     actEdit: TAction;
+    actTerminate: TAction;
     actShowDone: TAction;
     actSettings: TAction;
     ActionList1: TActionList;
@@ -63,7 +64,7 @@ type
     TimerAutoSave: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
-    ToolButton10: TToolButton;
+    tbClose: TToolButton;
     ToolButton11: TToolButton;
     ToolButton2: TToolButton;
     dtpDueDate: TZVDateTimePicker;
@@ -83,6 +84,7 @@ type
     procedure ActionList1Update(AAction: TBasicAction; var Handled: Boolean);
     procedure actSettingsExecute(Sender: TObject);
     procedure actShowDoneExecute(Sender: TObject);
+    procedure actTerminateExecute(Sender: TObject);
     procedure bSearchClick(Sender: TObject);
     procedure edtSearchChange(Sender: TObject);
     procedure edtPriorityKeyPress(Sender: TObject; var Key: char);
@@ -108,7 +110,6 @@ type
     procedure lbProjectsSelectionChange(Sender: TObject; User: boolean);
     procedure MenuItem1Click(Sender: TObject);
     procedure TimerAutoSaveTimer(Sender: TObject);
-    procedure ToolButton10Click(Sender: TObject);
     procedure TrayIconDblClick(Sender: TObject);
   private
     fLoading : boolean;
@@ -437,6 +438,11 @@ begin
   end;
 end;
 
+procedure TfrmOvoNote.actTerminateExecute(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
 procedure TfrmOvoNote.bSearchClick(Sender: TObject);
 begin
   edtSearch.Text:='';
@@ -758,6 +764,9 @@ procedure TfrmOvoNote.FormShow(Sender: TObject);
 begin
   LoadFile;
   ResizeGrid;
+  tbClose.Align:=alRight;
+  Panel2.Align:=alRight;
+
 end;
 
 procedure TfrmOvoNote.gridTaskUserCheckboxBitmap(Sender: TObject; const aCol,
@@ -787,11 +796,6 @@ begin
   TimerAutoSave.Enabled:=false;
   CheckAutoSave;
 
-end;
-
-procedure TfrmOvoNote.ToolButton10Click(Sender: TObject);
-begin
-  Application.terminate;
 end;
 
 procedure TfrmOvoNote.TrayIconDblClick(Sender: TObject);

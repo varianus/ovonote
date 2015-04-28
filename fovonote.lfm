@@ -72,19 +72,18 @@ object frmOvoNote: TfrmOvoNote
       Style = tbsDivider
     end
     object Panel2: TPanel
-      Left = 729
-      Height = 36
+      Left = 280
+      Height = 34
       Top = 2
       Width = 283
-      Align = alRight
       AutoSize = True
       BorderStyle = bsSingle
-      ClientHeight = 32
+      ClientHeight = 30
       ClientWidth = 279
       TabOrder = 0
       object edtSearch: TEdit
         Left = 1
-        Height = 30
+        Height = 28
         Top = 1
         Width = 245
         Align = alRight
@@ -93,7 +92,7 @@ object frmOvoNote: TfrmOvoNote
       end
       object bSearch: TSpeedButton
         Left = 246
-        Height = 30
+        Height = 28
         Top = 1
         Width = 32
         Align = alRight
@@ -187,31 +186,27 @@ object frmOvoNote: TfrmOvoNote
       Action = actEdit
     end
     object ToolButton7: TToolButton
-      Left = 211
+      Left = 214
       Top = 2
       Action = actSettings
     end
     object ToolButton8: TToolButton
       Left = 181
-      Height = 36
       Top = 2
-      Width = 30
-      Style = tbsDivider
+      Enabled = False
     end
     object ToolButton9: TToolButton
-      Left = 244
-      Height = 36
+      Left = 247
       Top = 2
-      Width = 37
       Caption = 'ToolButton9'
-      Style = tbsDivider
+      Enabled = False
+      ParentShowHint = False
+      ShowCaption = False
     end
-    object ToolButton10: TToolButton
-      Left = 281
+    object tbClose: TToolButton
+      Left = 563
       Top = 2
-      Caption = 'ToolButton10'
-      ImageIndex = 0
-      OnClick = ToolButton10Click
+      Action = actTerminate
     end
     object ToolButton11: TToolButton
       Left = 148
@@ -387,7 +382,6 @@ object frmOvoNote: TfrmOvoNote
     Visible = False
     OnKeyPress = edtPriorityKeyPress
     EditMask = '>L;1; '
-    Text = ' '
     SpaceChar = ' '
   end
   object edtTask: TEdit
@@ -483,6 +477,13 @@ object frmOvoNote: TfrmOvoNote
       Caption = 'Show Archived '
       ImageIndex = 6
       OnExecute = actShowDoneExecute
+    end
+    object actTerminate: TAction
+      Category = 'File'
+      Caption = 'actTerminate'
+      Hint = 'Close application'
+      ImageIndex = 0
+      OnExecute = actTerminateExecute
     end
   end
   object TrayIcon: TTrayIcon
