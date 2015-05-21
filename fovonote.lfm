@@ -353,6 +353,7 @@ object frmOvoNote: TfrmOvoNote
         Top = 1
         Width = 807
         Align = alClient
+        OnKeyDown = edtNewTaskKeyDown
         TabOrder = 0
       end
       object SpeedButton1: TSpeedButton
@@ -382,6 +383,7 @@ object frmOvoNote: TfrmOvoNote
     Visible = False
     OnKeyPress = edtPriorityKeyPress
     EditMask = '>L;1; '
+    Text = ' '
     SpaceChar = ' '
   end
   object edtTask: TEdit

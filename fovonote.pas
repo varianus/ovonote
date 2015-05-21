@@ -24,7 +24,7 @@ unit fovonote;
 interface
 
 uses
-  types, Classes, SysUtils, FileUtil, lclintf, Forms, Controls,
+  types, Classes, SysUtils, FileUtil, lcltype, lclintf, Forms, Controls,
   Graphics, Dialogs, StdCtrls, ComCtrls, Grids, ExtCtrls, ActnList, Menus,
   MaskEdit, Buttons, todo_parser, udatamodule, usettings, ZVDateTimePicker,
   DefaultTranslator, ExtDlgs;
@@ -86,6 +86,8 @@ type
     procedure actShowDoneExecute(Sender: TObject);
     procedure actTerminateExecute(Sender: TObject);
     procedure bSearchClick(Sender: TObject);
+    procedure edtNewTaskKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure edtSearchChange(Sender: TObject);
     procedure edtPriorityKeyPress(Sender: TObject; var Key: char);
     procedure edtTaskKeyPress(Sender: TObject; var Key: char);
@@ -447,6 +449,13 @@ procedure TfrmOvoNote.bSearchClick(Sender: TObject);
 begin
   edtSearch.Text:='';
   LoadToGrid();
+end;
+
+procedure TfrmOvoNote.edtNewTaskKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (key = VK_RETURN) and (edtNewTask.Text <> EmptyStr) then
+     actAdd.Execute;
 end;
 
 procedure TfrmOvoNote.edtSearchChange(Sender: TObject);
