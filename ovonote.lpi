@@ -92,7 +92,6 @@
         <ComponentName Value="frmOvoNote"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fovonote"/>
       </Unit1>
       <Unit2>
         <Filename Value="urawedit.pas"/>
@@ -100,7 +99,6 @@
         <ComponentName Value="fRawEdit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uRawEdit"/>
       </Unit2>
       <Unit3>
         <Filename Value="usettings.pas"/>
@@ -108,7 +106,6 @@
         <ComponentName Value="fSettings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="usettings"/>
       </Unit3>
       <Unit4>
         <Filename Value="udatamodule.pas"/>
@@ -131,7 +128,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="common"/>
+      <OtherUnitFiles Value="common;uniqueinstance"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

@@ -27,12 +27,13 @@ uses
   types, Classes, SysUtils, FileUtil, lcltype, lclintf, Forms, Controls,
   Graphics, Dialogs, StdCtrls, ComCtrls, Grids, ExtCtrls, ActnList, Menus,
   MaskEdit, Buttons, todo_parser, udatamodule, usettings, ZVDateTimePicker,
-  DefaultTranslator, ExtDlgs;
+  DefaultTranslator, ExtDlgs, uniqueInstance;
 
-type
-
+Const
+ AppNameServerID = 'ovonote-MC';
   { TfrmOvoNote }
 
+type
   TfrmOvoNote = class(TForm)
     actArchive: TAction;
     actAdd: TAction;
@@ -94,6 +95,7 @@ type
       Shift: TShiftState);
     procedure edtTaskKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure gridTaskButtonClick(Sender: TObject; aCol, aRow: Integer);
     procedure gridTaskCheckboxToggled(Sender: TObject; aCol, aRow: integer; aState: TCheckboxState);
@@ -118,6 +120,7 @@ type
   private
     fLoading : boolean;
     TaskList: TTaskList;
+    UniqueInstanceI: TUniqueInstance;
 
     procedure CheckAutoSave;
     procedure LoadFile;
@@ -128,6 +131,8 @@ type
     procedure ResizeGrid;
     procedure TaskListChange(Sender: TObject);
     procedure TasktoGridRow(Task: TTask; Arow: Integer);
+    procedure UniqueInstanceIOtherInstance(Sender: TObject;
+      ParamCount: Integer; Parameters: array of String);
 
   end;
 
@@ -512,9 +517,32 @@ begin
   CloseAction:=caHide;
 end;
 
+procedure TfrmOvoNote.UniqueInstanceIOtherInstance(Sender: TObject;
+  ParamCount: Integer; Parameters: array of String);
+begin
+  //
+  Self.show;
+end;
+
+procedure TfrmOvoNote.FormCreate(Sender: TObject);
+begin
+
+  UniqueInstanceI:= TUniqueInstance.Create(Self);
+  with UniqueInstanceI do
+    begin
+      Identifier := AppNameServerID;
+      UpdateInterval := 500;
+      OnOtherInstance := @UniqueInstanceIOtherInstance;
+      Enabled := True;
+      Loaded;
+    end;
+
+end;
+
 procedure TfrmOvoNote.FormDestroy(Sender: TObject);
 begin
   TaskList.Free ;
+  UniqueInstanceI.free;
 end;
 
 procedure TfrmOvoNote.actAddExecute(Sender: TObject);

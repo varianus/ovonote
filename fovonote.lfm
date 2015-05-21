@@ -1,7 +1,7 @@
 object frmOvoNote: TfrmOvoNote
-  Left = 2023
+  Left = 301
   Height = 679
-  Top = 200
+  Top = 144
   Width = 1012
   ActiveControl = dtpDueDate
   Caption = 'OvoNote'
@@ -13,6 +13,7 @@ object frmOvoNote: TfrmOvoNote
   Font.Pitch = fpVariable
   Font.Quality = fqCleartypeNatural
   OnClose = FormClose
+  OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
@@ -88,6 +89,7 @@ object frmOvoNote: TfrmOvoNote
         Width = 245
         Align = alRight
         OnChange = edtSearchChange
+        OnKeyDown = edtSearchKeyDown
         TabOrder = 0
       end
       object bSearch: TSpeedButton
@@ -383,7 +385,6 @@ object frmOvoNote: TfrmOvoNote
     Visible = False
     OnKeyPress = edtPriorityKeyPress
     EditMask = '>L;1; '
-    Text = ' '
     SpaceChar = ' '
   end
   object edtTask: TEdit
