@@ -90,6 +90,8 @@ type
       Shift: TShiftState);
     procedure edtSearchChange(Sender: TObject);
     procedure edtPriorityKeyPress(Sender: TObject; var Key: char);
+    procedure edtSearchKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure edtTaskKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDestroy(Sender: TObject);
@@ -454,8 +456,11 @@ end;
 procedure TfrmOvoNote.edtNewTaskKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (key = VK_RETURN) and (edtNewTask.Text <> EmptyStr) then
-     actAdd.Execute;
+  case key of
+    VK_RETURN : if edtNewTask.Text <> EmptyStr then
+                   actAdd.Execute;
+    VK_ESCAPE : edtNewTask.Clear;
+  end;
 end;
 
 procedure TfrmOvoNote.edtSearchChange(Sender: TObject);
@@ -478,6 +483,14 @@ begin
   if Key = #27 then
     edtTask.Undo;
 
+end;
+
+procedure TfrmOvoNote.edtSearchKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+    case key of
+    VK_ESCAPE : edtSearch.Clear;
+  end;
 end;
 
 procedure TfrmOvoNote.edtTaskKeyPress(Sender: TObject; var Key: char);
