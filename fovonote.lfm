@@ -385,6 +385,7 @@ object frmOvoNote: TfrmOvoNote
     Visible = False
     OnKeyPress = edtPriorityKeyPress
     EditMask = '>L;1; '
+    Text = ' '
     SpaceChar = ' '
   end
   object edtTask: TEdit
