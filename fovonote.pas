@@ -500,8 +500,14 @@ end;
 
 procedure TfrmOvoNote.edtTaskKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #27 then
-    edtTask.Undo;
+
+  case key of
+    #13 : begin
+        gridTaskSetEditText(gridTask,gridTask.Col, gridTask.Row, edtTask.Text);
+        gridTask.EditorMode :=false;
+    end;
+    #27 : edtTask.Undo;
+  end;
 end;
 
 procedure TfrmOvoNote.FormClose(Sender: TObject; var CloseAction: TCloseAction);
