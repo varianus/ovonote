@@ -94,8 +94,8 @@ msgstr ""
 msgid "Close application"
 msgstr ""
 
-#: tfrmovonote.caption
-msgid "OvoNote"
+#: tfrmovonote.edtpriority.text
+msgid " "
 msgstr ""
 
 #: tfrmovonote.edttask.text
@@ -119,39 +119,6 @@ msgstr ""
 
 #: tfrmovonote.filesaveas1.hint
 msgid "Save file"
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[0].title.caption
-msgid "Done"
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[1].title.caption
-msgid "Pr."
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[2].title.caption
-msgid "Task"
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[3].title.caption
-msgid "Due"
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[4].title.caption
-msgid "Contexts"
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[5].title.caption
-msgid "Projects"
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[6].title.caption
-msgid "Link"
-msgstr ""
-
-#: tfrmovonote.gridtask.columns[7].title.caption
-msgctxt "TFRMOVONOTE.GRIDTASK.COLUMNS[7].TITLE.CAPTION"
-msgid "Delete"
 msgstr ""
 
 #: tfrmovonote.menuitem1.caption

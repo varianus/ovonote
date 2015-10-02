@@ -368,6 +368,7 @@ begin
          Arch.Add(Task);
         end;
     end;
+
   if FileExistsUTF8(dm.FilePath+FILE_DONE) then
     begin
      CopyFile(dm.FilePath+FILE_DONE, ChangeFileExt(dm.FilePath+FILE_DONE,'.bak'));
@@ -379,7 +380,7 @@ begin
   DoneStream:= TFileStream.Create(dm.FilePath+FILE_DONE, mode);
 
   DoneStream.Seek(0,soEnd);
-  Arch.SaveToStream(DoneStream);
+  Arch.AppendToStream(DoneStream);
   DoneStream.free;
   FileSaveAs1.Execute;
   LoadToGrid();
