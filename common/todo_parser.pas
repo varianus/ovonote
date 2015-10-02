@@ -92,6 +92,7 @@ type
     Property Modified: boolean read GetModified write SetModified;
     procedure LoadFromStream(Data: TStream);
     procedure SaveToStream(Data: TStream);
+    procedure AppendToStream(Data: TStream);
     function RowFromItem(Task: TTask): string;
     function ItemFromRow(row: string): TTask;
     Procedure GetContexts( TaskList: TStrings);
@@ -240,6 +241,15 @@ var
   i: integer;
 begin
   Data.Size:=0;
+  AppendToStream(Data);
+
+end;
+
+procedure TTaskList.AppendToStream(Data: TStream);
+var
+  row: string;
+  i: integer;
+begin
   for i := 0 to Count - 1 do
     begin
       row := RowFromItem(TTask(Items[i]));

@@ -19,6 +19,7 @@ object frmOvoNote: TfrmOvoNote
   OnShow = FormShow
   ShowHint = True
   LCLVersion = '1.5'
+  Visible = False
   object mList: TMemo
     Left = 344
     Height = 35
