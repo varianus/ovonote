@@ -521,8 +521,9 @@ function TTask.SortKey: DWORD;
 begin
   Result := $ffffFFFF;
   if Priority <> #00 then
-  result := result and (byte(Priority));
-
+     result := result and (byte(Priority))
+  else
+    result := result and (byte(ord('M')));
 
 end;
 
