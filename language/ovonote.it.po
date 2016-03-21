@@ -35,10 +35,6 @@ msgstr "Aggiorna"
 msgid "Refresh file content"
 msgstr "Aggiorna contenuto file"
 
-#: tfrawedit.caption
-msgid "todo.txt"
-msgstr ""
-
 #: tfrmovonote.actadd.caption
 msgid "Add"
 msgstr "Aggiungi"

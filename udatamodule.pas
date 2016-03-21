@@ -72,7 +72,7 @@ implementation
 
 procedure Tdm.DataModuleCreate(Sender: TObject);
 begin
-  Config := TXMLConfigStorage.Create('ovonote.cfg', FileExistsUTF8('ovonote.cfg'));
+  Config := TXMLConfigStorage.Create('ovonote.cfg', FileExists('ovonote.cfg'));
 end;
 
 procedure Tdm.DataModuleDestroy(Sender: TObject);
@@ -82,7 +82,7 @@ end;
 
 function Tdm.getfilePath: string;
 begin
-  result := ExpandFileNameUTF8(Config.GetValue('Files/Path','.'));
+  result := ExpandFileName(Config.GetValue('Files/Path','.'));
 end;
 
 function Tdm.getAutoSave: boolean;

@@ -288,7 +288,7 @@ begin
     end;
 
   Mode := fmOpenRead;
-  if not FileExistsUTF8(dm.FilePath+FILE_TODO) then
+  if not FileExists(dm.FilePath+FILE_TODO) then
     inc(mode, fmCreate);
 
   TodoFile := TFileStream.Create(dm.FilePath+FILE_TODO, Mode);
@@ -369,7 +369,7 @@ begin
         end;
     end;
 
-  if FileExistsUTF8(dm.FilePath+FILE_DONE) then
+  if FileExists(dm.FilePath+FILE_DONE) then
     begin
      CopyFile(dm.FilePath+FILE_DONE, ChangeFileExt(dm.FilePath+FILE_DONE,'.bak'));
      Mode := fmOpenReadWrite
@@ -776,7 +776,7 @@ var
   TodoFile: TFileStream;
   Mode: Word;
 begin
-  if FileExistsUTF8(dm.FilePath+FILE_TODO) then
+  if FileExists(dm.FilePath+FILE_TODO) then
     begin
      CopyFile(dm.FilePath+FILE_TODO, ChangeFileExt(dm.FilePath+FILE_TODO,'.bak'));
      Mode := fmOpenReadWrite

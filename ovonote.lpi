@@ -29,11 +29,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\bin\ovonote"/>
+            <Filename Value="bin\ovonote"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\common"/>
+            <OtherUnitFiles Value="common;uniqueinstance"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -45,6 +45,7 @@
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
+              <StripSymbols Value="True"/>
             </Debugging>
             <LinkSmart Value="True"/>
             <Options>
@@ -99,6 +100,7 @@
         <ComponentName Value="fRawEdit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uRawEdit"/>
       </Unit2>
       <Unit3>
         <Filename Value="usettings.pas"/>

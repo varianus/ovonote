@@ -7,7 +7,8 @@ object fRawEdit: TfRawEdit
   ClientHeight = 691
   ClientWidth = 842
   OnCloseQuery = FormCloseQuery
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
+  Visible = False
   object ToolBar1: TToolBar
     Left = 0
     Height = 34
