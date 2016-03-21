@@ -34,7 +34,7 @@ object frmOvoNote: TfrmOvoNote
     Left = 0
     Height = 38
     Top = 0
-    Width = 1092
+    Width = 1060
     AutoSize = True
     ButtonHeight = 36
     ButtonWidth = 33
@@ -218,16 +218,16 @@ object frmOvoNote: TfrmOvoNote
   end
   object pnlFilter: TPanel
     Left = 0
-    Height = 793
+    Height = 717
     Top = 38
     Width = 170
     Align = alLeft
-    ClientHeight = 793
+    ClientHeight = 717
     ClientWidth = 170
     TabOrder = 3
     object lbContexts: TListBox
       Left = 1
-      Height = 488
+      Height = 412
       Top = 304
       Width = 168
       Align = alClient
@@ -252,18 +252,18 @@ object frmOvoNote: TfrmOvoNote
   end
   object Panel4: TPanel
     Left = 170
-    Height = 793
+    Height = 717
     Top = 38
-    Width = 922
+    Width = 890
     Align = alClient
-    ClientHeight = 793
-    ClientWidth = 922
+    ClientHeight = 717
+    ClientWidth = 890
     TabOrder = 6
     object gridTask: TStringGrid
       Left = 1
-      Height = 757
+      Height = 681
       Top = 35
-      Width = 920
+      Width = 888
       Align = alClient
       ColCount = 9
       Columns = <      
@@ -344,16 +344,16 @@ object frmOvoNote: TfrmOvoNote
       Left = 1
       Height = 34
       Top = 1
-      Width = 920
+      Width = 888
       Align = alTop
       ClientHeight = 34
-      ClientWidth = 920
+      ClientWidth = 888
       TabOrder = 0
       object edtNewTask: TEdit
         Left = 32
         Height = 32
         Top = 1
-        Width = 887
+        Width = 855
         Align = alClient
         OnKeyDown = edtNewTaskKeyDown
         TabOrder = 0
@@ -431,7 +431,7 @@ object frmOvoNote: TfrmOvoNote
     object FileOpen1: TAction
       Category = 'File'
       Caption = 'Refresh'
-      Enabled = False
+      DisableIfNoHandler = False
       Hint = 'Reload file'
       ImageIndex = 1
       OnExecute = FileOpen1Execute
@@ -440,7 +440,7 @@ object frmOvoNote: TfrmOvoNote
     object FileSaveAs1: TAction
       Category = 'File'
       Caption = 'Save'
-      Enabled = False
+      DisableIfNoHandler = False
       Hint = 'Save file'
       ImageIndex = 2
       OnExecute = FileSaveAs1Execute
@@ -448,27 +448,28 @@ object frmOvoNote: TfrmOvoNote
     object actArchive: TAction
       Category = 'File'
       Caption = 'Archive'
-      Enabled = False
+      DisableIfNoHandler = False
       Hint = 'Archive completed tasks'
       ImageIndex = 7
       OnExecute = actArchiveExecute
     end
     object actAdd: TAction
       Caption = 'Add'
-      Enabled = False
+      DisableIfNoHandler = False
       Hint = 'Add a new task'
       ImageIndex = 5
       OnExecute = actAddExecute
     end
     object actDelete: TAction
       Caption = 'Delete'
+      DisableIfNoHandler = False
       Hint = 'Delete task'
       ImageIndex = 8
       OnExecute = actDeleteExecute
     end
     object actEdit: TAction
       Caption = 'Edit'
-      Enabled = False
+      DisableIfNoHandler = False
       Hint = 'Internal text editor'
       ImageIndex = 3
       OnExecute = actEditExecute
@@ -476,7 +477,7 @@ object frmOvoNote: TfrmOvoNote
     object actSettings: TAction
       Category = 'Settings'
       Caption = 'Settings'
-      Enabled = False
+      DisableIfNoHandler = False
       Hint = 'Settings'
       ImageIndex = 9
       OnExecute = actSettingsExecute
@@ -484,14 +485,14 @@ object frmOvoNote: TfrmOvoNote
     object actShowDone: TAction
       Category = 'File'
       Caption = 'Show Archived '
-      Enabled = False
+      DisableIfNoHandler = False
       ImageIndex = 6
       OnExecute = actShowDoneExecute
     end
     object actTerminate: TAction
       Category = 'File'
       Caption = 'actTerminate'
-      Enabled = False
+      DisableIfNoHandler = False
       Hint = 'Close application'
       ImageIndex = 0
       OnExecute = actTerminateExecute
