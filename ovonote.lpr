@@ -1,6 +1,6 @@
 { Ovonote - My implementation of Todo.txt concept <http://todotxt.com/>
 
-  Copyright (C) 2015 Marco Caselli <marco.caselli at gmail dot com>
+  Copyright (C) 2015 Marco Caselli <marcocas at gmail dot com>
 
   This source is free software; you can redistribute it and/or modify it under
   the terms of the GNU General Public License as published by the Free

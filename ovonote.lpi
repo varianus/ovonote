@@ -82,7 +82,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="ovonote.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -120,6 +120,11 @@
         <Filename Value="common\todo_parser.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="common\usstringparser.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="USStringParser"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
