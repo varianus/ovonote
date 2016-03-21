@@ -79,7 +79,7 @@ begin
   else
   Active_File:=FILE_TODO;
 
-  if FileExistsUTF8(dm.FilePath+Active_File) then
+  if FileExists(dm.FilePath+Active_File) then
      Editor.Lines.LoadFromFile(dm.FilePath+Active_File)
   else
      Editor.Clear;
@@ -99,7 +99,7 @@ end;
 
 procedure TfRawEdit.actRefreshExecute(Sender: TObject);
 begin
-  if FileExistsUTF8(dm.FilePath+Active_File) then
+  if FileExists(dm.FilePath+Active_File) then
      Editor.Lines.LoadFromFile(dm.FilePath+Active_File)
   else
      Editor.Clear;
