@@ -1,40 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: fovonote.all_element
-msgctxt "fovonote.all_element"
-msgid "<All>"
-msgstr ""
-
-#: tdm.menuitem1.caption
-msgctxt "TDM.MENUITEM1.CAPTION"
-msgid "Close"
-msgstr ""
-
-#: tform1.caption
-msgctxt "tform1.caption"
-msgid "Settings"
-msgstr ""
-
-#: tform1.label1.caption
-msgctxt "tform1.label1.caption"
-msgid "Path to files"
-msgstr ""
-
-#: tfrawedit.actfilesave.caption
-msgctxt "tfrawedit.actfilesave.caption"
-msgid "Save"
-msgstr ""
-
-#: tfrawedit.actrefresh.caption
-msgctxt "tfrawedit.actrefresh.caption"
-msgid "Refresh"
-msgstr ""
-
-#: tfrawedit.actrefresh.hint
-msgid "Refresh file content"
-msgstr ""
-
 #: tfrmovonote.actadd.caption
 msgid "Add"
 msgstr ""
@@ -74,7 +40,7 @@ msgid "Settings"
 msgstr ""
 
 #: tfrmovonote.actsettings.hint
-msgctxt "TFRMOVONOTE.ACTSETTINGS.HINT"
+msgctxt "tfrmovonote.actsettings.hint"
 msgid "Settings"
 msgstr ""
 
@@ -82,12 +48,20 @@ msgstr ""
 msgid "Show Archived "
 msgstr ""
 
+#: tfrmovonote.actshowdone.hint
+msgid "Show Archived Task"
+msgstr ""
+
 #: tfrmovonote.actterminate.caption
-msgid "actTerminate"
+msgid "Terminate"
 msgstr ""
 
 #: tfrmovonote.actterminate.hint
 msgid "Close application"
+msgstr ""
+
+#: tfrmovonote.caption
+msgid "OvoNote"
 msgstr ""
 
 #: tfrmovonote.edtpriority.text
@@ -95,21 +69,19 @@ msgid " "
 msgstr ""
 
 #: tfrmovonote.edttask.text
-msgid "edtTask"
+msgctxt "tfrmovonote.edttask.text"
+msgid "Task"
 msgstr ""
 
 #: tfrmovonote.fileopen1.caption
-msgctxt "tfrmovonote.fileopen1.caption"
 msgid "Refresh"
 msgstr ""
 
 #: tfrmovonote.fileopen1.hint
-msgctxt "TFRMOVONOTE.FILEOPEN1.HINT"
 msgid "Reload file"
 msgstr ""
 
 #: tfrmovonote.filesaveas1.caption
-msgctxt "tfrmovonote.filesaveas1.caption"
 msgid "Save"
 msgstr ""
 
@@ -117,8 +89,41 @@ msgstr ""
 msgid "Save file"
 msgstr ""
 
+#: tfrmovonote.gridtask.columns[0].title.caption
+msgid "Done"
+msgstr ""
+
+#: tfrmovonote.gridtask.columns[1].title.caption
+msgid "Pr."
+msgstr ""
+
+#: tfrmovonote.gridtask.columns[2].title.caption
+msgctxt "tfrmovonote.gridtask.columns[2].title.caption"
+msgid "Task"
+msgstr ""
+
+#: tfrmovonote.gridtask.columns[3].title.caption
+msgid "Due"
+msgstr ""
+
+#: tfrmovonote.gridtask.columns[4].title.caption
+msgid "Contexts"
+msgstr ""
+
+#: tfrmovonote.gridtask.columns[5].title.caption
+msgid "Projects"
+msgstr ""
+
+#: tfrmovonote.gridtask.columns[6].title.caption
+msgid "Link"
+msgstr ""
+
+#: tfrmovonote.gridtask.columns[7].title.caption
+msgctxt "tfrmovonote.gridtask.columns[7].title.caption"
+msgid "Delete"
+msgstr ""
+
 #: tfrmovonote.menuitem1.caption
-msgctxt "tfrmovonote.menuitem1.caption"
 msgid "Exit"
 msgstr ""
 
@@ -130,23 +135,13 @@ msgstr ""
 msgid "ToolButton9"
 msgstr ""
 
-#: tfsettings.cbautosave.caption
-msgid "Auto-save changes"
-msgstr ""
-
-#: tfsettings.label1.caption
-msgctxt "TFSETTINGS.LABEL1.CAPTION"
-msgid "Path to files"
-msgstr ""
-
 #: udatamodule.all_element
-msgctxt "udatamodule.all_element"
 msgid "<All>"
 msgstr ""
 
 #: udatamodule.rs_save
 msgid ""
 "Task list have been modified.\n"
-"Do you want to save changes?\n"
+"Do you want to save changes?"
 msgstr ""
 

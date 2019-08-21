@@ -400,7 +400,7 @@ object frmOvoNote: TfrmOvoNote
     BorderStyle = bsNone
     OnKeyPress = edtTaskKeyPress
     TabOrder = 5
-    Text = 'edtTask'
+    Text = 'Task'
     Visible = False
   end
   object dtpDueDate: TDateTimePicker
@@ -490,12 +490,13 @@ object frmOvoNote: TfrmOvoNote
       Category = 'File'
       Caption = 'Show Archived '
       DisableIfNoHandler = False
+      Hint = 'Show Archived Task'
       ImageIndex = 6
       OnExecute = actShowDoneExecute
     end
     object actTerminate: TAction
       Category = 'File'
-      Caption = 'actTerminate'
+      Caption = 'Terminate'
       DisableIfNoHandler = False
       Hint = 'Close application'
       ImageIndex = 0
