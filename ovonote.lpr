@@ -28,8 +28,8 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, fovonote, todo_parser, USStringParser,
-  todotxtsyn_highlighter, zvdatetimectrls, uRawEdit,
-  DefaultTranslator, usettings, udatamodule;
+  todotxtsyn_highlighter, uRawEdit,
+  DefaultTranslator, datetimectrls, usettings, udatamodule;
 
 {$R *.res}
 

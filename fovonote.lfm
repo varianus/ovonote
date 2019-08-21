@@ -18,7 +18,6 @@ object frmOvoNote: TfrmOvoNote
   OnResize = FormResize
   OnShow = FormShow
   ShowHint = True
-  Visible = False
   object mList: TMemo
     Left = 344
     Height = 35
@@ -34,7 +33,7 @@ object frmOvoNote: TfrmOvoNote
     Left = 0
     Height = 38
     Top = 0
-    Width = 1060
+    Width = 1012
     AutoSize = True
     ButtonHeight = 36
     ButtonWidth = 33
@@ -57,23 +56,21 @@ object frmOvoNote: TfrmOvoNote
       Left = 67
       Height = 36
       Top = 2
-      Width = 10
       Style = tbsSeparator
     end
     object ToolButton5: TToolButton
-      Left = 77
+      Left = 75
       Top = 2
       Action = actArchive
     end
     object ToolButton4: TToolButton
-      Left = 110
+      Left = 108
       Height = 36
       Top = 2
-      Width = 5
       Style = tbsDivider
     end
     object Panel2: TPanel
-      Left = 280
+      Left = 278
       Height = 34
       Top = 2
       Width = 283
@@ -182,23 +179,23 @@ object frmOvoNote: TfrmOvoNote
       end
     end
     object ToolButton6: TToolButton
-      Left = 115
+      Left = 113
       Hint = 'Edit as text'
       Top = 2
       Action = actEdit
     end
     object ToolButton7: TToolButton
-      Left = 214
+      Left = 212
       Top = 2
       Action = actSettings
     end
     object ToolButton8: TToolButton
-      Left = 181
+      Left = 179
       Top = 2
       Enabled = False
     end
     object ToolButton9: TToolButton
-      Left = 247
+      Left = 245
       Top = 2
       Caption = 'ToolButton9'
       Enabled = False
@@ -206,28 +203,28 @@ object frmOvoNote: TfrmOvoNote
       ShowCaption = False
     end
     object tbClose: TToolButton
-      Left = 563
+      Left = 561
       Top = 2
       Action = actTerminate
     end
     object ToolButton11: TToolButton
-      Left = 148
+      Left = 146
       Top = 2
       Action = actShowDone
     end
   end
   object pnlFilter: TPanel
     Left = 0
-    Height = 717
+    Height = 641
     Top = 38
     Width = 170
     Align = alLeft
-    ClientHeight = 717
+    ClientHeight = 641
     ClientWidth = 170
     TabOrder = 3
     object lbContexts: TListBox
       Left = 1
-      Height = 412
+      Height = 336
       Top = 304
       Width = 168
       Align = alClient
@@ -252,18 +249,18 @@ object frmOvoNote: TfrmOvoNote
   end
   object Panel4: TPanel
     Left = 170
-    Height = 717
+    Height = 641
     Top = 38
-    Width = 890
+    Width = 842
     Align = alClient
-    ClientHeight = 717
-    ClientWidth = 890
+    ClientHeight = 641
+    ClientWidth = 842
     TabOrder = 6
     object gridTask: TStringGrid
       Left = 1
-      Height = 681
+      Height = 605
       Top = 35
-      Width = 888
+      Width = 840
       Align = alClient
       ColCount = 9
       Columns = <      
@@ -306,11 +303,18 @@ object frmOvoNote: TfrmOvoNote
         item
           ButtonStyle = cbsCheckboxColumn
           Title.Caption = 'Delete'
+          Width = 64
         end>
       DefaultDrawing = False
       DefaultRowHeight = 25
       ExtendedSelect = False
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -16
+      Font.Name = 'Ubuntu Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqCleartypeNatural
       Options = [goHorzLine, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goRelaxedRowSelect, goSmoothScroll, goTruncCellHints, goRowHighlight]
+      ParentFont = False
       RowCount = 2
       ScrollBars = ssBoth
       TabOrder = 1
@@ -344,16 +348,16 @@ object frmOvoNote: TfrmOvoNote
       Left = 1
       Height = 34
       Top = 1
-      Width = 888
+      Width = 840
       Align = alTop
       ClientHeight = 34
-      ClientWidth = 888
+      ClientWidth = 840
       TabOrder = 0
       object edtNewTask: TEdit
         Left = 32
         Height = 32
         Top = 1
-        Width = 855
+        Width = 807
         Align = alClient
         OnKeyDown = edtNewTaskKeyDown
         TabOrder = 0
@@ -390,7 +394,7 @@ object frmOvoNote: TfrmOvoNote
   end
   object edtTask: TEdit
     Left = 304
-    Height = 20
+    Height = 19
     Top = 135
     Width = 80
     BorderStyle = bsNone
@@ -399,11 +403,11 @@ object frmOvoNote: TfrmOvoNote
     Text = 'edtTask'
     Visible = False
   end
-  object dtpDueDate: TZVDateTimePicker
+  object dtpDueDate: TDateTimePicker
     Left = 400
     Height = 23
     Top = 132
-    Width = 83
+    Width = 104
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -426,8 +430,8 @@ object frmOvoNote: TfrmOvoNote
   object ActionList1: TActionList
     Images = dm.imglEnabled
     OnUpdate = ActionList1Update
-    left = 112
-    top = 96
+    Left = 112
+    Top = 96
     object FileOpen1: TAction
       Category = 'File'
       Caption = 'Refresh'
@@ -3449,12 +3453,12 @@ object frmOvoNote: TfrmOvoNote
     Hint = 'OvoNote'
     Visible = True
     OnDblClick = TrayIconDblClick
-    left = 528
-    top = 288
+    Left = 528
+    Top = 288
   end
   object TrayMenu: TPopupMenu
-    left = 464
-    top = 288
+    Left = 464
+    Top = 288
     object MenuItem1: TMenuItem
       Caption = 'Exit'
       OnClick = MenuItem1Click
@@ -3464,7 +3468,7 @@ object frmOvoNote: TfrmOvoNote
     Enabled = False
     Interval = 3000
     OnTimer = TimerAutoSaveTimer
-    left = 358
-    top = 182
+    Left = 358
+    Top = 182
   end
 end

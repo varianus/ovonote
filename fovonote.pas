@@ -24,9 +24,9 @@ unit fovonote;
 interface
 
 uses
-  types, Classes, SysUtils, FileUtil, lcltype, lclintf, Forms, Controls,
+  types, Classes, SysUtils, FileUtil, DateTimePicker, lcltype, lclintf, Forms, Controls,
   Graphics, Dialogs, StdCtrls, ComCtrls, Grids, ExtCtrls, ActnList, Menus,
-  MaskEdit, Buttons, todo_parser, udatamodule, usettings, ZVDateTimePicker,
+  MaskEdit, Buttons, todo_parser, udatamodule, usettings,
   DefaultTranslator, ExtDlgs, uniqueInstance;
 
 Const
@@ -68,7 +68,7 @@ type
     tbClose: TToolButton;
     ToolButton11: TToolButton;
     ToolButton2: TToolButton;
-    dtpDueDate: TZVDateTimePicker;
+    dtpDueDate: TDateTimePicker;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
@@ -607,7 +607,13 @@ procedure TfrmOvoNote.gridTaskDrawCell(Sender: TObject; aCol, aRow: Integer;
 var
   X, i: integer;
   Parola:string;
-  Size: TSize;
+  Function IsKey: boolean;  inline;
+  var
+    ps:integer;
+  begin
+    ps := Pos(':',Parola);
+    result :=(ps > 0) and (ps < Length(Parola));
+  end;
 
 begin
   if (aRow > 0) and (aCol = COL_DONE) then
@@ -629,12 +635,21 @@ begin
            Parola:= TaskList.Parser.Item[i]+' ';
            if Parola[1] in ['+','@'] then
               begin
+                gridTask.Canvas.Brush.Color := clDefault;
                 gridTask.Canvas.Font.Style:=[fsBold];
+                gridTask.Canvas.TextOut(X, arect.top+1, Parola);
+              end
+           else
+           if IsKey then
+              begin
+                gridTask.Canvas.Font.Style:=[];
+                gridTask.Canvas.Brush.Color := clInactiveCaption;
                 gridTask.Canvas.TextOut(X, arect.top+1, Parola);
               end
            else
               begin
                 gridTask.Canvas.Font.Style:=[];
+                gridTask.Canvas.Brush.Color := clDefault;
                 gridTask.Canvas.TextOut(X, arect.top, Parola);
               end;
 
