@@ -123,9 +123,9 @@ const
   TOKENTERM_SET = [#0..#32];
 
 const
-  KeysCount = 3;
+  KeysCount = 4;
   Keys: array[1..KeysCount] of string = (
-    'DUE:','H:','PRI:');
+    'DUE:','H:','PRI:','PERC:');
 
   LinksCount = 5;
   Links: array[1..LinksCount] of string = (
