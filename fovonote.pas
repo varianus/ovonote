@@ -42,10 +42,11 @@ type
     actTerminate: TAction;
     actShowDone: TAction;
     actSettings: TAction;
-    ActionList1: TActionList;
+    ActionList: TActionList;
+    bSearch: TSpeedButton;
     edtNewTask: TEdit;
-    edtTask: TEdit;
     edtSearch: TEdit;
+    edtTask: TEdit;
     gridTask: TStringGrid;
     FileOpen1: TAction;
     FileSaveAs1: Taction;
@@ -56,19 +57,19 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     mnuFile: TMenuItem;
+    pnlTop: TPanel;
+    pnlSearch: TPanel;
     pnlFilter: TPanel;
     pnlNew: TPanel;
-    Panel4: TPanel;
-    Panel2: TPanel;
-    bSearch: TSpeedButton;
+    pnlTasks: TPanel;
     SpeedButton1: TSpeedButton;
+    sbTerminate: TSpeedButton;
     TimerAutoSave: TTimer;
+    dtpDueDate: TDateTimePicker;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
-    tbClose: TToolButton;
     ToolButton11: TToolButton;
     ToolButton2: TToolButton;
-    dtpDueDate: TDateTimePicker;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
@@ -82,7 +83,7 @@ type
     procedure actArchiveExecute(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
-    procedure ActionList1Update(AAction: TBasicAction; var Handled: Boolean);
+    procedure ActionListUpdate(AAction: TBasicAction; var Handled: Boolean);
     procedure actSettingsExecute(Sender: TObject);
     procedure actShowDoneExecute(Sender: TObject);
     procedure actTerminateExecute(Sender: TObject);
@@ -114,7 +115,6 @@ type
     procedure gridTaskUserCheckboxBitmap(Sender: TObject; const aCol,
       aRow: Integer; const CheckedState: TCheckboxState; var ABitmap: TBitmap);
     procedure lbProjectsSelectionChange(Sender: TObject; User: boolean);
-    procedure MenuItem1Click(Sender: TObject);
     procedure TimerAutoSaveTimer(Sender: TObject);
     procedure TrayIconDblClick(Sender: TObject);
   private
@@ -259,6 +259,8 @@ begin
      st2 := '';
 
   LoadToGrid(st1, st2, edtSearch.Text);
+  lbProjects.ItemIndex := FilterProject;
+  lbContexts.ItemIndex := FilterContext;
 
 end;
 
@@ -425,7 +427,7 @@ begin
   FileOpen1.Execute;
 end;
 
-procedure TfrmOvoNote.ActionList1Update(AAction: TBasicAction;
+procedure TfrmOvoNote.ActionListUpdate(AAction: TBasicAction;
   var Handled: Boolean);
 begin
   FileSaveAs1.Enabled:= TaskList.Modified;
@@ -836,8 +838,7 @@ procedure TfrmOvoNote.FormShow(Sender: TObject);
 begin
   LoadFile;
   ResizeGrid;
-  tbClose.Align:=alRight;
-  Panel2.Align:=alRight;
+  pnlSearch.Align:=alRight;
 
 end;
 
@@ -855,12 +856,8 @@ end;
 
 procedure TfrmOvoNote.lbProjectsSelectionChange(Sender: TObject; User: boolean);
 begin
-  LoadToGrid();
-end;
-
-procedure TfrmOvoNote.MenuItem1Click(Sender: TObject);
-begin
-  Application.terminate;
+  if user then
+    LoadToGrid();
 end;
 
 procedure TfrmOvoNote.TimerAutoSaveTimer(Sender: TObject);
