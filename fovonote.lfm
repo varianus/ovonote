@@ -262,6 +262,7 @@ object frmOvoNote: TfrmOvoNote
       Flat = True
       Images = dm.imglEnabled
       ImageIndex = 0
+      ShowCaption = False
     end
     object ToolBar1: TToolBar
       Left = 1
