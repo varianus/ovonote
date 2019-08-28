@@ -393,7 +393,8 @@ function TTodoSyn.IsKeyword(const AKeyword: string): boolean;
 var
   i: Integer;
 begin
-  for i := 1 to KeysCount do if AnsiStartsText(Keys[i],AKeyWord) then
+  i := Pos(':',AKeyword);
+  if (i > 0) and (i < Length(AKeyword)) then
   begin
     Exit(True);
   end;

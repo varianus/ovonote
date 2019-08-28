@@ -614,7 +614,7 @@ var
     ps:integer;
   begin
     ps := Pos(':',Parola);
-    result :=(ps > 0) and (ps < Length(Parola));
+    result :=(ps > 0) and (ps < Length(trim(Parola)));
   end;
 
 begin
@@ -634,28 +634,32 @@ begin
 
       for i:= 0 to  TaskList.Parser.Count -1 do
         begin
-           Parola:= TaskList.Parser.Item[i]+' ';
-           if Parola[1] in ['+','@'] then
-              begin
-                gridTask.Canvas.Brush.Color := clDefault;
-                gridTask.Canvas.Font.Style:=[fsBold];
-                gridTask.Canvas.TextOut(X, arect.top+1, Parola);
-              end
-           else
-           if IsKey then
-              begin
-                gridTask.Canvas.Font.Style:=[];
-                gridTask.Canvas.Brush.Color := clInactiveCaption;
-                gridTask.Canvas.TextOut(X, arect.top+1, Parola);
-              end
-           else
-              begin
-                gridTask.Canvas.Font.Style:=[];
-                gridTask.Canvas.Brush.Color := clDefault;
-                gridTask.Canvas.TextOut(X, arect.top, Parola);
-              end;
+           Parola:= TaskList.Parser.Item[i];
+           if length(parola) > 0 then
+             begin
+               if Parola[1] in ['+','@'] then
+                  begin
+                    gridTask.Canvas.Brush.Color := clDefault;
+                    gridTask.Canvas.Font.Style:=[fsBold];
+                    gridTask.Canvas.TextOut(X, arect.top+1, Parola);
+                  end
+               else
+               if IsKey then
+                  begin
+                    gridTask.Canvas.Font.Style:=[];
+                    gridTask.Canvas.Brush.Color := clInactiveCaption;
+                    gridTask.Canvas.TextOut(X, arect.top+1, Parola);
+                  end
+               else
+                  begin
+                    gridTask.Canvas.Font.Style:=[];
+                    gridTask.Canvas.Brush.Color := clDefault;
+                    gridTask.Canvas.TextOut(X, arect.top, Parola);
+                  end;
 
-           inc(x, gridTask.Canvas.GetTextWidth(Parola));
+               inc(x, gridTask.Canvas.GetTextWidth(Parola+' '));
+
+             end;
 
         end;
     end
