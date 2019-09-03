@@ -178,7 +178,7 @@ begin
   lista := TStringList.Create;
   r:= 1;
   try
-    Lista.LoadFromStream(Data);
+    Lista.LoadFromStream(Data, TEncoding.UTF8);
     for i := 0 to lista.Count - 1 do
       begin
        if trim(Lista[i]) = emptystr then
