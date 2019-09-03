@@ -27,7 +27,7 @@ uses
   types, Classes, SysUtils, FileUtil, DateTimePicker, lcltype, lclintf, Forms, Controls,
   Graphics, Dialogs, StdCtrls, ComCtrls, Grids, ExtCtrls, ActnList, Menus,
   MaskEdit, Buttons, todo_parser, udatamodule, usettings,
-  DefaultTranslator, ExtDlgs, uniqueInstance;
+  DefaultTranslator, ExtDlgs, uniqueInstance, ImgList;
 
 Const
  AppNameServerID = 'ovonote-MC';
@@ -112,8 +112,8 @@ type
     procedure FileSaveAs1Execute(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure gridTaskUserCheckboxBitmap(Sender: TObject; const aCol,
-      aRow: Integer; const CheckedState: TCheckboxState; var ABitmap: TBitmap);
+    procedure gridTaskUserCheckboxImage(Sender: TObject; const aCol, aRow: Integer; const CheckedState: TCheckBoxState;
+      var ImageList: TCustomImageList; var ImageIndex: TImageIndex);
     procedure lbProjectsSelectionChange(Sender: TObject; User: boolean);
     procedure TimerAutoSaveTimer(Sender: TObject);
     procedure TrayIconDblClick(Sender: TObject);
@@ -728,6 +728,7 @@ begin
         else
           dtpDueDate.Date := NullDate;
       end;
+
    end;
 end;
 
@@ -846,16 +847,21 @@ begin
 
 end;
 
-procedure TfrmOvoNote.gridTaskUserCheckboxBitmap(Sender: TObject; const aCol,
-  aRow: Integer; const CheckedState: TCheckboxState; var ABitmap: TBitmap);
+procedure TfrmOvoNote.gridTaskUserCheckboxImage(Sender: TObject; const aCol, aRow: Integer;
+  const CheckedState: TCheckBoxState; var ImageList: TCustomImageList; var ImageIndex: TImageIndex);
 begin
+  ImageList := dm.imglSmall;
+
   if aCol = COL_DELETE then
-     dm.imglSmall.GetBitmap(1, ABitmap)
+    begin
+      ImageIndex := 1;
+    end
   else
     if CheckedState = cbChecked then
-       dm.imglSmall.GetBitmap(2, ABitmap)
+      ImageIndex := 2
     else
-       dm.imglSmall.GetBitmap(3, ABitmap);
+      ImageIndex := 3;
+
 end;
 
 procedure TfrmOvoNote.lbProjectsSelectionChange(Sender: TObject; User: boolean);

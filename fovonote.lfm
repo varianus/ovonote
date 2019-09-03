@@ -147,7 +147,7 @@ object frmOvoNote: TfrmOvoNote
       OnPrepareCanvas = gridTaskPrepareCanvas
       OnSelectEditor = gridTaskSelectEditor
       OnSetEditText = gridTaskSetEditText
-      OnUserCheckboxBitmap = gridTaskUserCheckboxBitmap
+      OnUserCheckboxImage = gridTaskUserCheckboxImage
       ColWidths = (
         64
         50
