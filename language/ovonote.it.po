@@ -131,15 +131,6 @@ msgctxt "tfrmovonote.gridtask.columns[7].title.caption"
 msgid "Delete"
 msgstr "Elimina"
 
-#: tfrmovonote.menuitem1.caption
-msgctxt "tfrmovonote.menuitem1.caption"
-msgid "Exit"
-msgstr "Esci"
-
-#: tfrmovonote.toolbutton6.hint
-msgid "Edit as text"
-msgstr "Modifica come testo"
-
 #: tfrmovonote.toolbutton9.caption
 msgid "ToolButton9"
 msgstr ""

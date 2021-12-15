@@ -40,8 +40,8 @@ object frmOvoNote: TfrmOvoNote
     TabOrder = 2
     object lbContexts: TListBox
       Left = 1
-      Height = 295
-      Top = 216
+      Height = 271
+      Top = 240
       Width = 168
       Align = alClient
       Anchors = [akLeft, akBottom]
@@ -54,13 +54,25 @@ object frmOvoNote: TfrmOvoNote
       AnchorSideBottom.Control = lbContexts
       Left = 1
       Height = 215
-      Top = 1
+      Top = 25
       Width = 168
       Align = alTop
       ItemHeight = 0
       OnSelectionChange = lbProjectsSelectionChange
       ScrollWidth = 166
       TabOrder = 1
+    end
+    object cbExcludeCompleted: TCheckBox
+      Left = 1
+      Height = 24
+      Top = 1
+      Width = 168
+      Align = alTop
+      Caption = 'Exclude completed'
+      Checked = True
+      OnClick = cbExcludeCompletedClick
+      State = cbChecked
+      TabOrder = 2
     end
   end
   object pnlTasks: TPanel
@@ -231,6 +243,7 @@ object frmOvoNote: TfrmOvoNote
     TabOrder = 0
     BorderStyle = bsNone
     TrailingSeparator = False
+    TextForNullDate = 'NULL'
     LeadingZeros = True
     Visible = False
     Kind = dtkDate

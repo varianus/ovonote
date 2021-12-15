@@ -64,6 +64,14 @@ msgstr ""
 msgid "OvoNote"
 msgstr ""
 
+#: tfrmovonote.cbexcludecompleted.caption
+msgid "Exclude completed"
+msgstr ""
+
+#: tfrmovonote.dtpduedate.textfornulldate
+msgid "NULL"
+msgstr ""
+
 #: tfrmovonote.edtpriority.text
 msgid " "
 msgstr ""
@@ -121,14 +129,6 @@ msgstr ""
 #: tfrmovonote.gridtask.columns[7].title.caption
 msgctxt "tfrmovonote.gridtask.columns[7].title.caption"
 msgid "Delete"
-msgstr ""
-
-#: tfrmovonote.menuitem1.caption
-msgid "Exit"
-msgstr ""
-
-#: tfrmovonote.toolbutton6.hint
-msgid "Edit as text"
 msgstr ""
 
 #: tfrmovonote.toolbutton9.caption

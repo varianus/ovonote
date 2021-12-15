@@ -1,5 +1,6 @@
 {"version":1,"strings":[
 {"hash":114579189,"name":"tfrmovonote.caption","sourcebytes":[79,118,111,78,111,116,101],"value":"OvoNote"},
+{"hash":261705412,"name":"tfrmovonote.cbexcludecompleted.caption","sourcebytes":[69,120,99,108,117,100,101,32,99,111,109,112,108,101,116,101,100],"value":"Exclude completed"},
 {"hash":308805,"name":"tfrmovonote.gridtask.columns[0].title.caption","sourcebytes":[68,111,110,101],"value":"Done"},
 {"hash":22350,"name":"tfrmovonote.gridtask.columns[1].title.caption","sourcebytes":[80,114,46],"value":"Pr."},
 {"hash":370843,"name":"tfrmovonote.gridtask.columns[2].title.caption","sourcebytes":[84,97,115,107],"value":"Task"},
@@ -10,6 +11,7 @@
 {"hash":78392485,"name":"tfrmovonote.gridtask.columns[7].title.caption","sourcebytes":[68,101,108,101,116,101],"value":"Delete"},
 {"hash":32,"name":"tfrmovonote.edtpriority.text","sourcebytes":[32],"value":" "},
 {"hash":370843,"name":"tfrmovonote.edttask.text","sourcebytes":[84,97,115,107],"value":"Task"},
+{"hash":342540,"name":"tfrmovonote.dtpduedate.textfornulldate","sourcebytes":[78,85,76,76],"value":"NULL"},
 {"hash":160486425,"name":"tfrmovonote.toolbutton9.caption","sourcebytes":[84,111,111,108,66,117,116,116,111,110,57],"value":"ToolButton9"},
 {"hash":146640072,"name":"tfrmovonote.fileopen1.caption","sourcebytes":[82,101,102,114,101,115,104],"value":"Refresh"},
 {"hash":121507189,"name":"tfrmovonote.fileopen1.hint","sourcebytes":[82,101,108,111,97,100,32,102,105,108,101],"value":"Reload file"},

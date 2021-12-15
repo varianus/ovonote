@@ -44,6 +44,7 @@ type
     actSettings: TAction;
     ActionList: TActionList;
     bSearch: TSpeedButton;
+    cbExcludeCompleted: TCheckBox;
     edtNewTask: TEdit;
     edtSearch: TEdit;
     edtTask: TEdit;
@@ -88,6 +89,7 @@ type
     procedure actShowDoneExecute(Sender: TObject);
     procedure actTerminateExecute(Sender: TObject);
     procedure bSearchClick(Sender: TObject);
+    procedure cbExcludeCompletedClick(Sender: TObject);
     procedure edtNewTaskKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edtSearchChange(Sender: TObject);
@@ -124,7 +126,7 @@ type
 
     procedure CheckAutoSave;
     procedure LoadFile;
-    procedure LoadToGrid(FilterProject, FilterContext, FilterText: string); overload;
+    procedure LoadToGrid(FilterProject, FilterContext, FilterText: string; ExcludeCompleted: boolean); overload;
     procedure LoadToGrid(FilterProject, FilterContext: Integer); overload;
     procedure LoadToGrid(); overload;
     procedure ReloadFilters;
@@ -180,7 +182,7 @@ begin
 
 end;
 
-procedure TfrmOvoNote.LoadToGrid(FilterProject,FilterContext, FilterText:string);
+procedure TfrmOvoNote.LoadToGrid(FilterProject,FilterContext, FilterText:string; ExcludeCompleted: boolean);
 var
   i: integer;
   Task: TTask;
@@ -207,6 +209,8 @@ begin
     for i := 0 to TaskList.Count - 1 do
       begin
         Task := TTask(TaskList.Items[i]);
+        if (Task.Done and ExcludeCompleted) then
+          Continue;
         if FilterProject <> EmptyStr then
            if Task.Projects.IndexOf(FilterProject) < 0 then
               Continue;
@@ -258,7 +262,7 @@ begin
   else
      st2 := '';
 
-  LoadToGrid(st1, st2, edtSearch.Text);
+  LoadToGrid(st1, st2, edtSearch.Text, cbExcludeCompleted.Checked);
   lbProjects.ItemIndex := FilterProject;
   lbContexts.ItemIndex := FilterContext;
 
@@ -271,9 +275,9 @@ end;
 
 procedure TfrmOvoNote.ReloadFilters;
 begin
-  TaskList.GetContexts(lbContexts.Items);
+  TaskList.GetContexts(lbContexts.Items, cbExcludeCompleted.Checked);
   lbContexts.Items.Insert(0,ALL_ELEMENT);
-  TaskList.GetProjects(lbProjects.Items);
+  TaskList.GetProjects(lbProjects.Items, cbExcludeCompleted.Checked);
   lbProjects.Items.Insert(0,ALL_ELEMENT);
 
 end;
@@ -299,7 +303,7 @@ begin
   TaskList.LoadFromStream(TodoFile);
 
   gridTask.RowCount := TaskList.Count + 1;
-  LoadToGrid('','','');
+  LoadToGrid('','','', true);
 
   gridTask.Invalidate;
   ReloadFilters;
@@ -459,6 +463,12 @@ procedure TfrmOvoNote.bSearchClick(Sender: TObject);
 begin
   edtSearch.Text:='';
   LoadToGrid();
+end;
+
+procedure TfrmOvoNote.cbExcludeCompletedClick(Sender: TObject);
+begin
+  LoadToGrid();
+  ReloadFilters;
 end;
 
 procedure TfrmOvoNote.edtNewTaskKeyDown(Sender: TObject; var Key: Word;

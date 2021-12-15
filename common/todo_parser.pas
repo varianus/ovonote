@@ -95,8 +95,8 @@ type
     procedure AppendToStream(Data: TStream);
     function RowFromItem(Task: TTask): string;
     function ItemFromRow(row: string): TTask;
-    Procedure GetContexts( TaskList: TStrings);
-    Procedure GetProjects( TaskList: TStrings);
+    procedure GetContexts(TaskList: TStrings; ExcludeCompleted: boolean);
+    procedure GetProjects(TaskList: TStrings; ExcludeCompleted: boolean);
     Procedure Tasksort;
     Property OnChange: TNotifyEvent read FOnChange write SetOnChange;
     constructor Create; reintroduce;
@@ -353,7 +353,7 @@ begin
       end;
 end;
 
-procedure TTaskList.GetContexts( TaskList: TStrings);
+procedure TTaskList.GetContexts( TaskList: TStrings; ExcludeCompleted: boolean);
 var
   i:Integer;
   Task: TTask;
@@ -367,6 +367,8 @@ begin
   for i := 0 to Count -1 do
     begin
       Task := TTask(Items[i]);
+      if Task.Done and ExcludeCompleted then
+         Continue;
       IntList.AddStrings(Task.Contexts);
     end;
   TaskList.Assign(IntList);
@@ -374,7 +376,7 @@ begin
 
 end;
 
-procedure TTaskList.GetProjects( TaskList: TStrings);
+procedure TTaskList.GetProjects( TaskList: TStrings; ExcludeCompleted: boolean);
 var
   i:Integer;
   Task: TTask;
@@ -388,6 +390,8 @@ begin
   for i := 0 to Count -1 do
     begin
       Task := TTask(Items[i]);
+      if Task.Done and ExcludeCompleted then
+         Continue;
       IntList.AddStrings(Task.Projects);
     end;
   TaskList.Assign(IntList);
