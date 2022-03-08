@@ -24,7 +24,7 @@ unit todo_parser;
 interface
 
 uses
-  Classes, SysUtils, USStringParser, contnrs;
+  Classes, SysUtils, contnrs;
 
 type
   // forward
@@ -88,7 +88,6 @@ type
     Procedure Notify(Ptr: Pointer; Action: TListNotification); override;
     Procedure DoChange(Task:TTask);
   public
-    Parser: TUSStringParser;
     Property Modified: boolean read GetModified write SetModified;
     procedure LoadFromStream(Data: TStream);
     procedure SaveToStream(Data: TStream);
@@ -275,12 +274,13 @@ var
   i: integer;
   CurrString: string;
   wDate:TDate;
+  Words: TStringArray;
 begin
   Result := TTask.Create(self);
-  Parser.Stringa := row;
-  for i := 0 to Parser.Count - 1 do
+  Words := row.Split(' ');
+  for i := 0 to Length(Words) - 1 do
     begin
-    CurrString := Parser[i];
+    CurrString := Words[i];
    // handle positional
     case i of
     0: begin
@@ -414,15 +414,12 @@ end;
 constructor TTaskList.Create;
 begin
   inherited Create(true);
-  Parser := TUSStringParser.Create;
-  Parser.Separatore := ' ';
   fMasterModified := false;
 end;
 
 destructor TTaskList.Destroy;
 begin
   inherited Destroy;
-  Parser.free;
 end;
 
 { TTask }
@@ -556,16 +553,15 @@ procedure TTask.ExtractProjectsAndContexts(row: string);
 var
   i: integer;
   CurrString: string;
-  Parser: TUSStringParser;
+  Words: TStringArray;
 begin
   fProjects.Clear;
   fContexts.Clear;
-  Parser := FOwner.Parser;
 
-  Parser.Stringa := row;
-  for i := 0 to Parser.Count - 1 do
+  Words:= row.split(' ');
+  for i := 0 to length(Words) - 1 do
     begin
-      CurrString := Parser[i];
+      CurrString := Words[i];
 
       if Length(CurrString) < 2 then
          Continue;

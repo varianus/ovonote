@@ -18,6 +18,7 @@ object frmOvoNote: TfrmOvoNote
   OnResize = FormResize
   OnShow = FormShow
   ShowHint = True
+  LCLVersion = '2.3.0.0'
   object mList: TMemo
     Left = 344
     Height = 35
@@ -105,6 +106,7 @@ object frmOvoNote: TfrmOvoNote
           Width = 35
         end      
         item
+          Alignment = taCenter
           Title.Caption = 'Task'
           Width = 87
         end      
@@ -211,7 +213,6 @@ object frmOvoNote: TfrmOvoNote
     Width = 80
     AutoSize = False
     BorderStyle = bsNone
-    CharCase = ecNormal
     MaxLength = 1
     TabOrder = 3
     Visible = False
@@ -222,7 +223,7 @@ object frmOvoNote: TfrmOvoNote
   end
   object edtTask: TEdit
     Left = 304
-    Height = 19
+    Height = 20
     Top = 135
     Width = 80
     BorderStyle = bsNone
@@ -303,7 +304,7 @@ object frmOvoNote: TfrmOvoNote
       end
       object ToolButton3: TToolButton
         Left = 67
-        Height = 36
+        Height = 8
         Top = 2
         Style = tbsSeparator
       end
@@ -314,7 +315,7 @@ object frmOvoNote: TfrmOvoNote
       end
       object ToolButton4: TToolButton
         Left = 108
-        Height = 36
+        Height = 5
         Top = 2
         Style = tbsDivider
       end

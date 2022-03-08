@@ -67,6 +67,14 @@ msgstr "Chiudi applicazione"
 msgid "OvoNote"
 msgstr ""
 
+#: tfrmovonote.cbexcludecompleted.caption
+msgid "Exclude completed"
+msgstr "Escludi completati"
+
+#: tfrmovonote.dtpduedate.textfornulldate
+msgid "NULL"
+msgstr "VUOTO"
+
 #: tfrmovonote.edtpriority.text
 msgid " "
 msgstr ""

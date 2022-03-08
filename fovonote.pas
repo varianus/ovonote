@@ -596,7 +596,7 @@ begin
       end;
     COL_PRIORITY:
       begin
-        gridTask.Canvas.Font.Size := -15;
+        gridTask.Canvas.Font.Size := 15;
       end;
     COL_TASK:
       begin
@@ -619,6 +619,7 @@ procedure TfrmOvoNote.gridTaskDrawCell(Sender: TObject; aCol, aRow: Integer;
 var
   X, i: integer;
   Parola:string;
+  Words: TStringArray;
   Function IsKey: boolean;  inline;
   var
     ps:integer;
@@ -628,23 +629,25 @@ var
   end;
 
 begin
-  if (aRow > 0) and (aCol = COL_DONE) then
+  if (aRow > 0) and ((aCol = COL_DONE) )  then
     begin
       aState:= [gdFixed];
     end;
+  if (aRow > 0) and ( (aCol = COL_PRIORITY))  then
+    begin
+      aState:= [gdSelected];
+    end;
 
-  if (aRow > 0) and (aCol = COL_TASK) then
+  if (aRow > 0) and (aCol in [ COL_TASK, COL_PRIORITY]) then
     begin
       //
       x:= aRect.Left +2;
 
       gridTask.Canvas.FillRect(Arect);
-      TaskList.Parser.Stringa:=gridTask.Cells[aCol,aRow];
-      TaskList.Parser.Parse;
-
-      for i:= 0 to  TaskList.Parser.Count -1 do
+      Words := gridTask.Cells[aCol,aRow].split(' ');
+      for i:= 0 to  length(Words)-1 do
         begin
-           Parola:= TaskList.Parser.Item[i];
+           Parola:=Words[i];
            if length(parola) > 0 then
              begin
                if Parola[1] in ['+','@'] then
