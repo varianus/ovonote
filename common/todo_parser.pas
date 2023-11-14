@@ -27,6 +27,8 @@ uses
   Classes, SysUtils, contnrs;
 
 type
+  THighLightKind = (hlkNone, hlkHTML);
+
   // forward
   TTaskList = class;
 
@@ -39,7 +41,7 @@ type
     FDone: boolean;
     FDue: TDate;
     FLink: string;
-    FModified: Boolean;
+    FModified: boolean;
     FOwner: TTaskList;
     FPriority: char;
     FProjects: TStringList;
@@ -52,16 +54,16 @@ type
     procedure SetDone(AValue: boolean);
     procedure SetDue(AValue: TDate);
     procedure SetLink(AValue: string);
-    procedure SetModified(AValue: Boolean);
+    procedure SetModified(AValue: boolean);
     procedure SetPriority(AValue: char);
     procedure SetProjects(AValue: TStringList);
     procedure SetRow(AValue: integer);
     procedure SetTask(AValue: string);
     function SortKey: DWORD;
   public
-    Property Owner: TTaskList read FOwner;
-    property Modified: Boolean read FModified write SetModified;
-    Property Row : integer read FRow write SetRow;
+    property Owner: TTaskList read FOwner;
+    property Modified: boolean read FModified write SetModified;
+    property Row: integer read FRow write SetRow;
     property Task: string read FTask write SetTask;
     property Priority: char read FPriority write SetPriority;
     property Done: boolean read FDone write SetDone;
@@ -72,7 +74,7 @@ type
     property Creation: TDate read FCreation write SetCreation;
     property Link: string read FLink write SetLink;
     constructor Create(aOwner: TTaskList);
-    destructor Destroy;  override;
+    destructor Destroy; override;
   end;
 
   { TTaskList }
@@ -82,24 +84,25 @@ type
     fMasterModified: boolean;
     FOnChange: TNotifyEvent;
     function GetModified: boolean;
+    function HtmlRender(TaskText: string): string;
     procedure SetModified(AValue: boolean);
     procedure SetOnChange(AValue: TNotifyEvent);
   protected
-    Procedure Notify(Ptr: Pointer; Action: TListNotification); override;
-    Procedure DoChange(Task:TTask);
+    procedure Notify(Ptr: Pointer; Action: TListNotification); override;
+    procedure DoChange(Task: TTask);
   public
-    Property Modified: boolean read GetModified write SetModified;
+    property Modified: boolean read GetModified write SetModified;
     procedure LoadFromStream(Data: TStream);
     procedure SaveToStream(Data: TStream);
     procedure AppendToStream(Data: TStream);
-    function RowFromItem(Task: TTask): string;
+    function RowFromItem(Task: TTask; HighLightKind: THighLightKind = hlkNone): string;
     function ItemFromRow(row: string): TTask;
     procedure GetContexts(TaskList: TStrings; ExcludeCompleted: boolean);
     procedure GetProjects(TaskList: TStrings; ExcludeCompleted: boolean);
-    Procedure Tasksort;
-    Property OnChange: TNotifyEvent read FOnChange write SetOnChange;
+    procedure Tasksort;
+    property OnChange: TNotifyEvent read FOnChange write SetOnChange;
     constructor Create; reintroduce;
-    destructor Destroy;  override;
+    destructor Destroy; override;
 
   end;
 
@@ -110,20 +113,20 @@ implementation
 { TTaskList }
 uses strutils, Math, RegExpr;
 
-function TaskCompare(Item1, Item2: Pointer): Integer;
+function TaskCompare(Item1, Item2: Pointer): integer;
 var
   Task1: TTask absolute item1;
   Task2: TTask absolute item2;
 begin
-  result :=  CompareValue(ord(task1.done), ord(task2.done));
-  if result = 0 then
+  Result := CompareValue(Ord(task1.done), Ord(task2.done));
+  if Result = 0 then
     Result := CompareValue(task1.SortKey, Task2.SortKey);
-  if result = 0 then
-    Result := CompareValue(ifthen(Task1.due=0, MaxDateTime,task1.Due),
-                           ifthen(Task2.due=0, MaxDateTime,task2.Due)) ;
+  if Result = 0 then
+    Result := CompareValue(ifthen(Task1.due = 0, MaxDateTime, task1.Due),
+      ifthen(Task2.due = 0, MaxDateTime, task2.Due));
 
-  if result = 0 then
-     result := CompareValue(task1.Row, task2.Row);
+  if Result = 0 then
+    Result := CompareValue(task1.Row, task2.Row);
 
 end;
 
@@ -131,39 +134,37 @@ procedure TTaskList.SetModified(AValue: boolean);
 var
   i: integer;
 begin
-  fMasterModified:=AValue;
+  fMasterModified := AValue;
 
-  for i :=0 to count -1 do
-    TTask(Items[i]).Modified := false;
+  for i := 0 to Count - 1 do
+    TTask(Items[i]).Modified := False;
 
 end;
 
 procedure TTaskList.Notify(Ptr: Pointer; Action: TListNotification);
 begin
   inherited Notify(Ptr, Action);
-  fMasterModified:= true;
+  fMasterModified := True;
   DoChange(TTask(Ptr));
 end;
 
 procedure TTaskList.DoChange(Task: TTask);
 begin
   if Assigned(FOnChange) then
-     FOnChange(self);
+    FOnChange(self);
 end;
 
 function TTaskList.GetModified: boolean;
 var
   i: integer;
 begin
-  result := fMasterModified;
+  Result := fMasterModified;
   if not fMasterModified then
-    for i :=0 to count -1 do
+    for i := 0 to Count - 1 do
+      if TTask(Items[i]).Modified then
       begin
-        if TTask(Items[i]).Modified then
-           begin
-             result := true;
-             break;
-           end;
+        Result := True;
+        break;
       end;
 
 end;
@@ -175,62 +176,98 @@ var
   aTask: TTask;
 begin
   lista := TStringList.Create;
-  r:= 1;
+  r := 1;
   try
+    Data.position := 0;
     Lista.LoadFromStream(Data, TEncoding.UTF8);
     for i := 0 to lista.Count - 1 do
+    begin
+      if trim(Lista[i]) = emptystr then
+        Continue;
+
+      atask := ItemFromRow(Lista[i]);
+      if Assigned(aTask) then
       begin
-       if trim(Lista[i]) = emptystr then
-         Continue;
-
-        atask := ItemFromRow(Lista[i]);
-        if Assigned(aTask) then
-          begin
-            ATask.Row:= R;
-            add(aTask);
-            inc(r);
-          end;
+        ATask.Row := R;
+        add(aTask);
+        Inc(r);
       end;
-
-    finally
-      lista.Free;
     end;
- Modified:=false;
+
+  finally
+    lista.Free;
+  end;
+  Modified := False;
 
 end;
 
-function TTaskList.RowFromItem(Task: TTask): string;
-//var
-//  i: integer;
-//  CurrString: string;
+function TTaskList.HtmlRender(TaskText: string): string;
+var
+  Words: TStringArray;
+  i: integer;
+  Parola: string;
+
+  function IsKey: boolean; inline;
+  var
+    ps: integer;
+  begin
+    ps := Pos(':', Parola);
+    Result := (ps > 0) and (ps < Length(trim(Parola)));
+  end;
+
+begin
+
+  Result := '';
+  Words := TaskText.Split(' ');
+  for i := 0 to length(Words) -1 do
+  begin
+    Parola := Words[i];
+    if length(parola) > 0 then
+      if Parola[1] in ['+', '@'] then
+        Result := Result + '<b>' + Parola + '</b> '
+      else
+      if IsKey then
+        Result := Result + '<u>' + Parola + '</u> '
+      else
+        Result := Result + parola + ' ';
+  end;
+  Result := trim(Result);
+end;
+
+function TTaskList.RowFromItem(Task: TTask; HighLightKind: THighLightKind = hlkNone): string;
+  //var
+  //  i: integer;
+  //  CurrString: string;
 begin
   Result := '';
   if Task.Done then
-    begin
-       Result := 'x ';
-       if Task.Completion > 0 then
-          Result := Result + FormatDateTime('YYYY-MM-DD ', Task.Completion);
-    end
+  begin
+    Result := 'x ';
+    if Task.Completion > 0 then
+      Result := Result + FormatDateTime('YYYY-MM-DD ', Task.Completion);
+  end
   else
-    if Task.Priority <> #00 then
-      Result := '(' + Task.Priority + ') ';
+  if Task.Priority <> #00 then
+    Result := '(' + Task.Priority + ') ';
 
   if Task.Creation <> 0 then
-      Result := Result + FormatDateTime('YYYY-MM-DD ', Task.Creation);
+    Result := Result + FormatDateTime('YYYY-MM-DD ', Task.Creation);
 
   Result := Result + Task.Task;
 
   if Task.Due <> 0 then
-    Result := Result + ' due:' + FormatDateTime('YYYY-MM-DD', Task.Due);
+    Result := Result + ' due:' + FormatDateTime('YYYY-MM-DD', Task.Due)+' ';
 
   if Task.Done and (Task.Priority <> #00) then
     Result := Result + ' pri:' + Task.Priority;
 
-
   if task.Link <> '' then
     Result := Result + ' ' + task.link;
 
-  RESULT:= trim(result);
+  case HighLightKind of
+      hlkHTML: Result := HtmlRender(Result );
+    end;
+  Result := trim(Result);
 
 end;
 
@@ -239,7 +276,7 @@ var
   row: string;
   i: integer;
 begin
-  Data.Size:=0;
+  Data.Size := 0;
   AppendToStream(Data);
 
 end;
@@ -250,14 +287,14 @@ var
   i: integer;
 begin
   for i := 0 to Count - 1 do
-    begin
-      row := RowFromItem(TTask(Items[i]));
-      Data.Write(row[1], Length(row));
-      Row:=sLineBreak;
-      Data.Write(Row[1], SizeOf(sLineBreak));
-    end;
+  begin
+    row := RowFromItem(TTask(Items[i]));
+    Data.Write(row[1], Length(row));
+    Row := sLineBreak;
+    Data.Write(Row[1], SizeOf(sLineBreak));
+  end;
 
-  Modified:=false;
+  Modified := False;
 
 end;
 
@@ -273,148 +310,144 @@ function TTaskList.ItemFromRow(row: string): TTask;
 var
   i: integer;
   CurrString: string;
-  wDate:TDate;
+  wDate: TDate;
   Words: TStringArray;
 begin
   Result := TTask.Create(self);
   Words := row.Split(' ');
   for i := 0 to Length(Words) - 1 do
-    begin
+  begin
     CurrString := Words[i];
-   // handle positional
+    // handle positional
     case i of
-    0: begin
+      0: begin
         if (CurrString = 'x') then
-          begin
-            Result.FDone := True;
-            Continue;
-          end
+        begin
+          Result.FDone := True;
+          Continue;
+        end
         else if ExecRegExpr('^\([A-Z]\)$', CurrString) then
-            begin
-              Result.Priority := CurrString[2];
-              Continue;
-            end
-          else
-            Result.Priority := #00;
+        begin
+          Result.Priority := CurrString[2];
+          Continue;
+        end
+        else
+          Result.Priority := #00;
 
-        wDate:= ExtractDate(CurrString);
+        wDate := ExtractDate(CurrString);
         if wDate <> 0 then
+        begin
+          Result.Creation := wDate;
+          Continue;
+        end;
+
+      end;
+      1: begin
+        wDate := ExtractDate(CurrString);
+        if wDate <> 0 then
+        begin
+          if Result.done then
+            Result.completion := wDate
+          else
+            Result.Creation := wDate;
+          Continue;
+        end;
+      end;
+      2: if Result.Done and (Result.Completion <> 0) then
+        begin
+          wDate := ExtractDate(CurrString);
+          if wDate <> 0 then
           begin
             Result.Creation := wDate;
             Continue;
           end;
-
-      end;
-    1: begin
-         wDate:= ExtractDate(CurrString);
-         if wDate <> 0 then
-           begin
-              if Result.done then
-                 Result.completion := wDate
-              else
-                 Result.Creation := wDate;
-              Continue;
-           end;
-       end;
-    2: begin
-         if Result.Done and (result.Completion <> 0) then
-            begin
-               wDate:= ExtractDate(CurrString);
-               if wDate <> 0 then
-                  begin
-                    Result.Creation := wDate;
-                    Continue;
-                  end;
-            end;
         end;
     end;
     if Length(CurrString) >= 1 then
-        begin
-           if AnsiStartsStr('due:', CurrString) then
-              Result.Due := ExtractDate(Copy(CurrString, 5, Length(CurrString)))
-           else if AnsiStartsStr('pri:', CurrString) then
-              Result.priority := Copy(CurrString, 5, 1)[1]
-           else
-                if (AnsiStartsStr('http:', CurrString) or
-                    AnsiStartsStr('https:', CurrString)) then
-              Result.Link := CurrString
-              // //  //    //      //
-           else
-             begin
-               Result.FTask := Result.FTask + CurrString + ' ';
-               if CurrString[1] = '+' then
-                 Result.Projects.Add(CurrString)
-               else
-                 if CurrString[1] = '@' then
-                   Result.Contexts.Add(CurrString);
+      if AnsiStartsStr('due:', CurrString) then
+        Result.Due := ExtractDate(Copy(CurrString, 5, Length(CurrString)))
+      else if AnsiStartsStr('pri:', CurrString) then
+        Result.priority := Copy(CurrString, 5, 1)[1]
+      else
+      if (AnsiStartsStr('http:', CurrString) or
+        AnsiStartsStr('https:', CurrString)) then
+        Result.Link := CurrString
+      // //  //    //      //
+      else
+      begin
+        Result.FTask := Result.FTask + CurrString + ' ';
+        if CurrString[1] = '+' then
+          Result.Projects.Add(CurrString)
+        else
+        if CurrString[1] = '@' then
+          Result.Contexts.Add(CurrString);
 
-            end;
-        end;
       end;
+  end;
 end;
 
-procedure TTaskList.GetContexts( TaskList: TStrings; ExcludeCompleted: boolean);
+procedure TTaskList.GetContexts(TaskList: TStrings; ExcludeCompleted: boolean);
 var
-  i:Integer;
+  i: integer;
   Task: TTask;
   IntList: TStringList;
 begin
   TaskList.Clear;
   IntList := TStringList.Create;
-  IntList.Sorted:= true;
-  IntList.Duplicates:=dupIgnore;
+  IntList.Sorted := True;
+  IntList.Duplicates := dupIgnore;
 
-  for i := 0 to Count -1 do
-    begin
-      Task := TTask(Items[i]);
-      if Task.Done and ExcludeCompleted then
-         Continue;
-      IntList.AddStrings(Task.Contexts);
-    end;
+  for i := 0 to Count - 1 do
+  begin
+    Task := TTask(Items[i]);
+    if Task.Done and ExcludeCompleted then
+      Continue;
+    IntList.AddStrings(Task.Contexts);
+  end;
   TaskList.Assign(IntList);
-  IntList.free;
+  IntList.Free;
 
 end;
 
-procedure TTaskList.GetProjects( TaskList: TStrings; ExcludeCompleted: boolean);
+procedure TTaskList.GetProjects(TaskList: TStrings; ExcludeCompleted: boolean);
 var
-  i:Integer;
+  i: integer;
   Task: TTask;
   IntList: TStringList;
 begin
   TaskList.Clear;
   IntList := TStringList.Create;
-  IntList.Sorted:= true;
-  IntList.Duplicates:=dupIgnore;
+  IntList.Sorted := True;
+  IntList.Duplicates := dupIgnore;
 
-  for i := 0 to Count -1 do
-    begin
-      Task := TTask(Items[i]);
-      if Task.Done and ExcludeCompleted then
-         Continue;
-      IntList.AddStrings(Task.Projects);
-    end;
+  for i := 0 to Count - 1 do
+  begin
+    Task := TTask(Items[i]);
+    if Task.Done and ExcludeCompleted then
+      Continue;
+    IntList.AddStrings(Task.Projects);
+  end;
   TaskList.Assign(IntList);
-  IntList.free;
+  IntList.Free;
 
 end;
 
 procedure TTaskList.Tasksort;
 begin
-    Sort(@TaskCompare);
+  Sort(@TaskCompare);
 end;
 
 procedure TTaskList.SetOnChange(AValue: TNotifyEvent);
 begin
-  if FOnChange=AValue then Exit;
-  FOnChange:=AValue;
+  if FOnChange = AValue then Exit;
+  FOnChange := AValue;
 end;
 
 
 constructor TTaskList.Create;
 begin
-  inherited Create(true);
-  fMasterModified := false;
+  inherited Create(True);
+  fMasterModified := False;
 end;
 
 destructor TTaskList.Destroy;
@@ -429,7 +462,7 @@ begin
   if FCompletion = AValue then
     Exit;
   FCompletion := AValue;
-  SetModified(true);
+  SetModified(True);
 end;
 
 procedure TTask.SetContexts(AValue: TStringList);
@@ -437,14 +470,14 @@ begin
   if FContexts = AValue then
     Exit;
   FContexts := AValue;
-  SetModified(true);
+  SetModified(True);
 end;
 
 procedure TTask.SetCreation(AValue: TDate);
 begin
-  if FCreation=AValue then Exit;
-  FCreation:=AValue;
-  SetModified(true);
+  if FCreation = AValue then Exit;
+  FCreation := AValue;
+  SetModified(True);
 end;
 
 procedure TTask.SetDone(AValue: boolean);
@@ -453,10 +486,10 @@ begin
     Exit;
   FDone := AValue;
   if FDone then
-    FCompletion:=trunc(Now)
+    FCompletion := trunc(Now)
   else
     FCompletion := 0;
-  SetModified(true);
+  SetModified(True);
 
 end;
 
@@ -465,7 +498,7 @@ begin
   if FDue = AValue then
     Exit;
   FDue := AValue;
-  SetModified(true);
+  SetModified(True);
 end;
 
 procedure TTask.SetLink(AValue: string);
@@ -473,16 +506,14 @@ begin
   if FLink = AValue then
     Exit;
   FLink := AValue;
-  SetModified(true);
+  SetModified(True);
 end;
 
-procedure TTask.SetModified(AValue: Boolean);
+procedure TTask.SetModified(AValue: boolean);
 begin
-  FModified:=AValue;
+  FModified := AValue;
   if (FModified) then
-    begin
-     FOwner.DoChange(self);
-    end;
+    FOwner.DoChange(self);
 
 end;
 
@@ -491,7 +522,7 @@ begin
   if FPriority = AValue then
     Exit;
   FPriority := AValue;
-  SetModified(true);
+  SetModified(True);
 end;
 
 procedure TTask.SetProjects(AValue: TStringList);
@@ -499,14 +530,14 @@ begin
   if FProjects = AValue then
     Exit;
   FProjects := AValue;
-  SetModified(true);
+  SetModified(True);
 end;
 
 procedure TTask.SetRow(AValue: integer);
 begin
-  if FRow=AValue then Exit;
-  FRow:=AValue;
-  SetModified(true);
+  if FRow = AValue then Exit;
+  FRow := AValue;
+  SetModified(True);
 end;
 
 procedure TTask.SetTask(AValue: string);
@@ -515,16 +546,16 @@ begin
     Exit;
   FTask := AValue;
   ExtractProjectsAndContexts(AValue);
-  SetModified(true);
+  SetModified(True);
 end;
 
 function TTask.SortKey: DWORD;
 begin
   Result := $ffffFFFF;
   if Priority <> #00 then
-     result := result and (byte(Priority))
+    Result := Result and (byte(Priority))
   else
-    result := result and (byte(ord('M')));
+    Result := Result and (byte(Ord('M')));
 
 end;
 
@@ -532,12 +563,12 @@ constructor TTask.Create(aOwner: TTaskList);
 begin
   FProjects := TStringList.Create;
   FContexts := TStringList.Create;
-  FCompletion:= 0;
+  FCompletion := 0;
   FCreation := 0;
-  FTask :='';
-  FDone :=false;
-  FDue :=0;
-  FPriority:=#00;
+  FTask := '';
+  FDone := False;
+  FDue := 0;
+  FPriority := #00;
   FOwner := aOwner;
 end;
 
@@ -558,21 +589,21 @@ begin
   fProjects.Clear;
   fContexts.Clear;
 
-  Words:= row.split(' ');
+  Words := row.split(' ');
   for i := 0 to length(Words) - 1 do
-    begin
-      CurrString := Words[i];
+  begin
+    CurrString := Words[i];
 
-      if Length(CurrString) < 2 then
-         Continue;
+    if Length(CurrString) < 2 then
+      Continue;
 
-      if CurrString[1] = '+' then
-         fProjects.Add(CurrString)
-      else
-         if CurrString[1] = '@' then
-            fContexts.Add(CurrString)
+    if CurrString[1] = '+' then
+      fProjects.Add(CurrString)
+    else
+    if CurrString[1] = '@' then
+      fContexts.Add(CurrString);
 
-    end;
+  end;
 end;
 
 
