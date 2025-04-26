@@ -27,7 +27,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, fovonote, todo_parser, USStringParser,
+  Forms, fovonote, todo_parser,
   todotxtsyn_highlighter, uRawEdit,
   DefaultTranslator, datetimectrls, usettings, udatamodule;
 
