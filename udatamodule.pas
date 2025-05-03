@@ -82,7 +82,7 @@ end;
 
 function Tdm.getfilePath: string;
 begin
-  result := ExpandFileName(Config.GetValue('Files/Path','.'));
+  result := IncludeTrailingPathDelimiter(ExpandFileName(Config.GetValue('Files/Path','.')));
 end;
 
 function Tdm.getAutoSave: boolean;

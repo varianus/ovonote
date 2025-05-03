@@ -70,7 +70,7 @@ end;
 
 procedure TfSettings.OKButtonClick(Sender: TObject);
 begin
- dm.FilePath:= DirectoryEdit1.Directory;
+ dm.FilePath:= IncludeTrailingPathDelimiter(DirectoryEdit1.Directory);
  dm.SaveConfig;
  Close;
 end;
