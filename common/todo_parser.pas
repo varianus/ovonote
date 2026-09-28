@@ -272,9 +272,6 @@ begin
 end;
 
 procedure TTaskList.SaveToStream(Data: TStream);
-var
-  row: string;
-  i: integer;
 begin
   Data.Size := 0;
   AppendToStream(Data);
